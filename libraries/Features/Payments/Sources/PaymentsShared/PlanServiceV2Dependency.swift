@@ -367,7 +367,11 @@ extension CorePaymentsPlanServiceV2 {
 }
 
 private enum PlanServiceV2Key: DependencyKey {
+    #if DIODE_BACKEND
+    static let liveValue: any PaymentsPlanServiceV2 = DiodePaymentsPlanServiceV2()
+    #else
     static let liveValue: any PaymentsPlanServiceV2 = CorePaymentsPlanServiceV2()
+    #endif
     static let testValue: any PaymentsPlanServiceV2 = UnimplementedPlanServiceV2()
 }
 

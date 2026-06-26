@@ -81,3 +81,47 @@ extension DatabaseMetadata: TableRecord, FetchableRecord, PersistableRecord {
         case value
     }
 }
+
+extension DiodeVpnNodeRecord: TableRecord, FetchableRecord, PersistableRecord {
+    public static let databaseTableName = "diode_vpn_nodes"
+
+    public enum Columns: String, ColumnExpression {
+        case nodeIdHex = "node_id_hex"
+        case host
+        case name
+        case latitude
+        case longitude
+        case city
+        case country
+        case wsRpcUrlOverride = "ws_rpc_url_override"
+        case httpRpcUrlOverride = "http_rpc_url_override"
+        case updatedAt = "updated_at"
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case nodeIdHex = "node_id_hex"
+        case host
+        case name
+        case latitude
+        case longitude
+        case city
+        case country
+        case wsRpcUrlOverride = "ws_rpc_url_override"
+        case httpRpcUrlOverride = "http_rpc_url_override"
+        case updatedAt = "updated_at"
+    }
+}
+
+extension DiodeVpnConnectFailureRecord: TableRecord, FetchableRecord, PersistableRecord {
+    public static let databaseTableName = "diode_vpn_connect_failures"
+
+    public enum Columns: String, ColumnExpression {
+        case nodeIdHex = "node_id_hex"
+        case failedAt = "failed_at"
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case nodeIdHex = "node_id_hex"
+        case failedAt = "failed_at"
+    }
+}

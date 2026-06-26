@@ -92,15 +92,19 @@ extension VPNServerFilter {
             let substringPattern = "%\(query)%" // use for filtering against columns containing diacritics
             let normalizedSubstringPattern = "%\(query.normalized)%" // filter against diacritic stripped columns
             let prefixPattern = "\(query)%"
-            return logical[Logical.Columns.exitCountryCode] == query.uppercased() // match country codes only exactly
-                || logical[Logical.Columns.entryCountryCode] == query.uppercased() // match country codes only exactly
-                || logical[Logical.Columns.city].like(normalizedSubstringPattern)
+            let uppercasedQuery = query.uppercased()
+
+            let countryCodeMatch = logical[Logical.Columns.exitCountryCode] == uppercasedQuery
+                || logical[Logical.Columns.entryCountryCode] == uppercasedQuery
+            let normalizedTextMatch = logical[Logical.Columns.city].like(normalizedSubstringPattern)
                 || logical[Logical.Columns.state].like(normalizedSubstringPattern)
                 || logical[Logical.Columns.gatewayName].like(normalizedSubstringPattern)
-                || logical[Logical.Columns.translatedCity].like(substringPattern) // likely to contain diacritics
+            let localizedMatch = logical[Logical.Columns.translatedCity].like(substringPattern)
                 || localizedCountryName(logical[Logical.Columns.exitCountryCode]).like(normalizedSubstringPattern)
                 || localizedCountryName(logical[Logical.Columns.entryCountryCode]).like(normalizedSubstringPattern)
-                || logical[Logical.Columns.name].like(prefixPattern)
+            let nameMatch = logical[Logical.Columns.name].like(prefixPattern)
+
+            return countryCodeMatch || normalizedTextMatch || localizedMatch || nameMatch
 
         case let .city(name):
             return logical[Logical.Columns.city] == name

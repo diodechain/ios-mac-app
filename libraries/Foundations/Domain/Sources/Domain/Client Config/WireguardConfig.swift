@@ -70,6 +70,7 @@ public struct StoredWireguardConfig: Codable {
 
     public enum Version: Int {
         case v1 = 1
+        case v2 = 2
     }
 
     let wireguardConfig: WireguardConfig
@@ -78,6 +79,8 @@ public struct StoredWireguardConfig: Codable {
     let serverPublicKey: String?
     let entryServerAddress: String
     let ports: [Int]
+    let clientAddressCidr: String?
+    let listenPort: Int?
 
     let timestamp: Date
 
@@ -87,7 +90,9 @@ public struct StoredWireguardConfig: Codable {
         serverPublicKey: String?,
         entryServerAddress: String,
         ports: [Int],
-        timestamp: Date
+        timestamp: Date,
+        clientAddressCidr: String? = nil,
+        listenPort: Int? = nil
     ) {
         precondition(!ports.isEmpty, "Ports should not be empty")
         self.wireguardConfig = wireguardConfig
@@ -95,7 +100,14 @@ public struct StoredWireguardConfig: Codable {
         self.serverPublicKey = serverPublicKey
         self.entryServerAddress = entryServerAddress
         self.ports = ports
+        self.clientAddressCidr = clientAddressCidr
+        self.listenPort = listenPort
         self.timestamp = timestamp
+    }
+
+    public static func version(from data: Data) -> Version? {
+        guard let firstByte = data.first else { return nil }
+        return Version(rawValue: Int(firstByte))
     }
 
     public func withNewServerPublicKey(
@@ -108,8 +120,9 @@ public struct StoredWireguardConfig: Codable {
             serverPublicKey: newServerPublicKey,
             entryServerAddress: newEntryServerAddress,
             ports: ports,
-            // update the timestamp since the configuration has changed
-            timestamp: Date()
+            timestamp: Date(),
+            clientAddressCidr: clientAddressCidr,
+            listenPort: listenPort
         )
     }
 }
@@ -125,9 +138,11 @@ public extension StoredWireguardConfig {
         if let clientPrivateKey {
             output.append("PrivateKey = \(clientPrivateKey)\n")
         }
-        output.append("Address = \(wireguardConfig.address)\n")
+        let address = clientAddressCidr ?? wireguardConfig.address
+        output.append("Address = \(address)\n")
 
-        output.append("DNS = \(wireguardConfig.dnsServers?.joined(separator: ",") ?? "10.2.0.1")\n")
+        let defaultDNS = listenPort != nil ? "1.1.1.1" : "10.2.0.1"
+        output.append("DNS = \(wireguardConfig.dnsServers?.joined(separator: ",") ?? defaultDNS)\n")
 
         output.append("\n[Peer]\n")
         if let serverPublicKey {
@@ -137,7 +152,8 @@ public extension StoredWireguardConfig {
 
         // VPNAPPL-1447 - find out why the wireguard-go backend is improperly parsing the
         // IPv4 address from the config
-        let endpointLine = "Endpoint = \(entryServerAddress):\(ports.first!)\n"
+        let endpointPort = listenPort ?? ports.first!
+        let endpointLine = "Endpoint = \(entryServerAddress):\(endpointPort)\n"
 
         output.append(endpointLine)
         if let persistentKeepalive = wireguardConfig.persistentKeepalive {

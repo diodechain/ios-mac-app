@@ -15,7 +15,7 @@ let package = Package(
         .library(name: "DomainTestSupport", targets: ["DomainTestSupport"]),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"), // Heavy dependency - logic that requires ProtonCore could live as extensions in another package
+        .package(path: "../../External/ProtonShims"), // Heavy dependency - logic that requires ProtonCore could live as extensions in another package
 
         .package(path: "../Strings"),
         .package(path: "../Ergonomics"),
@@ -31,7 +31,7 @@ let package = Package(
             dependencies: [
                 "Strings",
                 "Ergonomics",
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "IssueReporting", package: "xctest-dynamic-overlay"),

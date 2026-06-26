@@ -22,6 +22,7 @@ import Dependencies
 
 import ProtonCoreAPIClient
 import ProtonCoreNetworking
+import ProtonCoreServices
 import VPNShared
 
 public final class ReportsBugs1: Request {

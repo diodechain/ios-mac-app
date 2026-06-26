@@ -23,6 +23,7 @@ import Dependencies
 import DependenciesMacros
 import Foundation
 import ProtonCoreAPIClient
+import ProtonCoreServices
 import VPNShared
 
 @DependencyClient

@@ -38,7 +38,7 @@ public protocol VPNNetworking {
     func setSession(_ session: Session)
 
     // Async/await methods
-    func perform<T: Decodable>(request: Request) async throws -> T
+    func perform<T: APIDecodableResponse>(request: Request) async throws -> T
     func perform<T: Codable>(request route: Request, files: [String: URL]) async throws -> T
     func perform(request route: Request) async throws -> JSONDictionary
 
@@ -111,7 +111,7 @@ public struct CoreNetworkingWrapper: VPNNetworking {
         wrapped.apiService.setSessionUID(uid: session.uid)
     }
 
-    public func perform<T: Decodable>(request: Request) async throws -> T {
+    public func perform<T: APIDecodableResponse>(request: Request) async throws -> T {
         try await wrapped.perform(request: request)
     }
 
@@ -207,7 +207,7 @@ public extension DependencyValues {
 
         func setSession(_: Session) {}
 
-        func perform<T>(request _: any ProtonCoreNetworking.Request) async throws -> T where T: Decodable {
+        func perform<T>(request _: any ProtonCoreNetworking.Request) async throws -> T where T: APIDecodableResponse {
             throw "" as GenericError
         }
 

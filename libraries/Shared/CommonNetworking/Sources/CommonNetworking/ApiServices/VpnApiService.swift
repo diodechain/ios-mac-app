@@ -155,6 +155,11 @@ public enum VpnApiClientKey: DependencyKey {
             freeTier: Bool,
             completion: @escaping (Result<ServerInfoResponse, Error>) -> Void
         ) {
+            guard !DiodeBackend.isEnabled else {
+                completion(.success(.notModified(since: nil)))
+                return
+            }
+
             let countryCodes: [String] = (countryCode.map { [$0] } ?? []) // country code from v1/locations response
                 .appending(countryCodeProvider.countryCodes) // local guesses at appropriate country codes
                 .uniqued
@@ -216,8 +221,48 @@ public enum VpnApiClientKey: DependencyKey {
             }
         }
 
+        @Sendable
+        func diodeVpnProperties(lastKnownLocation: UserLocation?) -> VpnProperties {
+            let credentials: VpnCredentials
+            if let cached = try? vpnKeychain.fetch() {
+                credentials = cached
+            } else {
+                credentials = VpnCredentials(
+                    status: 1,
+                    planTitle: "Diode VPN",
+                    maxConnect: DomainConstants.maxDeviceCount,
+                    maxTier: .paidTier,
+                    services: 0,
+                    groupId: "diode",
+                    name: "diode",
+                    password: "",
+                    delinquent: 0,
+                    credit: 0,
+                    currency: "USD",
+                    hasPaymentMethod: false,
+                    planName: "vpn2022",
+                    subscribed: 1,
+                    businessEvents: false
+                )
+            }
+
+            return VpnProperties(
+                serverInfo: .notModified(since: nil),
+                streamingServices: nil,
+                vpnCredentials: credentials,
+                location: lastKnownLocation ?? UserLocation(ip: "", country: "", isp: ""),
+                clientConfig: nil,
+                user: nil,
+                addresses: nil
+            )
+        }
+
         return VpnApiClient(
             vpnProperties: { isDisconnected, lastKnownLocation, serversAccordingToTier in
+                guard !DiodeBackend.isEnabled else {
+                    return diodeVpnProperties(lastKnownLocation: lastKnownLocation)
+                }
+
                 // Only retrieve IP address when not connected to VPN
                 async let asyncLocation = (isDisconnected ? userLocation() : lastKnownLocation) ?? lastKnownLocation
                 let clientConfig = try? await clientConfig(for: asyncLocation?.ip)
@@ -238,6 +283,10 @@ public enum VpnApiClientKey: DependencyKey {
                 )
             },
             refreshServerInfo: { lastKnownIp, freeTier in
+                guard !DiodeBackend.isEnabled else {
+                    return nil
+                }
+
                 let location = await userLocation()
 
                 guard lastKnownIp == nil || location?.ip != lastKnownIp else {
@@ -263,6 +312,10 @@ public enum VpnApiClientKey: DependencyKey {
                 try await serverInfo(ip: ip, countryCode: countryCode, freeTier: freeTier)
             },
             serverState: { id in
+                guard !DiodeBackend.isEnabled else {
+                    throw CommonVpnError.logicalsEndpointFailed
+                }
+
                 func serverState(serverId id: String, completion: @escaping (Result<VpnServerState, Error>) -> Void) {
                     networking.request(VPNServerRequest(id)) { (result: Result<JSONDictionary, Error>) in
                         switch result {
@@ -290,6 +343,10 @@ public enum VpnApiClientKey: DependencyKey {
                 try await networking.perform(request: VPNSessionsCountRequest())
             },
             loads: { lastKnownIp in
+                guard !DiodeBackend.isEnabled else {
+                    return ContinuousServerPropertiesDictionary()
+                }
+
                 func loads(lastKnownIp: TruncatedIp?, completion: @escaping (Result<ContinuousServerPropertiesDictionary, Error>) -> Void) {
                     networking.request(VPNLoadsRequest(truncatedIP: lastKnownIp)) { (result: Result<JSONDictionary, Error>) in
                         switch result {

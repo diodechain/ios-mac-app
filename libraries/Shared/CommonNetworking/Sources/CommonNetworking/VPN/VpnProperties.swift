@@ -56,7 +56,7 @@ public struct VpnProperties {
         self.userAccountRecovery = user?.accountRecovery
         self.userInfo = Self.buildUserInfo(user: user, addresses: addresses)
         if let createTime = user?.createTime {
-            self.userCreateTime = Date(timeIntervalSince1970: createTime)
+            self.userCreateTime = Date(timeIntervalSince1970: TimeInterval(createTime))
         } else {
             self.userCreateTime = nil
         }

@@ -29,7 +29,9 @@ public struct LogicalsClient: Sendable {
 }
 
 extension LogicalsClient: DependencyKey {
-    public static var liveValue: LogicalsClient {
+    public static var liveValue: LogicalsClient { .proton }
+
+    public static var proton: LogicalsClient {
         @Dependency(\.networking) var networking
         return LogicalsClient(
             fetchLogicals: { ip, countryCode in

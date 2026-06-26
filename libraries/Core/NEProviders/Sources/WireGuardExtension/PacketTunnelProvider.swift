@@ -21,6 +21,7 @@ open class WireGuardPacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPISe
     private let certificateRefreshManager: ExtensionCertificateRefreshManager
 
     private var currentWireguardServer: StoredWireguardConfig?
+    private var storedConfigVersion: StoredWireguardConfig.Version?
     // Currently connected logical server id
     private var connectedLogicalId: String?
     // Currently connected server ip id
@@ -94,6 +95,7 @@ open class WireGuardPacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPISe
 
         if let storedConfig = tunnelProviderProtocol?.storedWireguardConfigurationFromData(keychainConfigData) {
             currentWireguardServer = storedConfig
+            storedConfigVersion = StoredWireguardConfig.version(from: keychainConfigData)
 
             connectedLogicalId = tunnelProviderProtocol?.connectedLogicalId
             connectedIpId = tunnelProviderProtocol?.connectedServerIpId
@@ -220,6 +222,11 @@ open class WireGuardPacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPISe
     }
 
     private func connectionEstablished(newVpnCertificateFeatures: VPNConnectionFeatures?) {
+        if shouldSkipCertificateRefresh {
+            wg_log(.info, message: "Skipping certificate refresh for Diode WireGuard config v2")
+            return
+        }
+
         if let newVpnCertificateFeatures {
             wg_log(.debug, message: "Connection restarted with another server. Will regenerate certificate.")
 
@@ -260,6 +267,11 @@ open class WireGuardPacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPISe
     override open func sleep(completionHandler: @escaping () -> Void) {
         wg_log(.info, message: "Getting ready to sleep, stopping certificate manager...")
 
+        guard !shouldSkipCertificateRefresh else {
+            completionHandler()
+            return
+        }
+
         certificateRefreshManager.stop {
             wg_log(.info, message: "Certificate manager stopped, proceeding with sleep")
             completionHandler()
@@ -269,6 +281,10 @@ open class WireGuardPacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPISe
     override open func wake() {
         wg_log(.info, message: "Waking up, starting certificate refresh manager...")
 
+        guard !shouldSkipCertificateRefresh else {
+            return
+        }
+
         certificateRefreshManager.start {
             wg_log(.info, message: "Certificate manager started, processing with waking up")
         }
@@ -276,6 +292,10 @@ open class WireGuardPacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPISe
 }
 
 private extension WireGuardPacketTunnelProvider {
+    var shouldSkipCertificateRefresh: Bool {
+        DiodeBackend.isEnabled && storedConfigVersion == .v2
+    }
+
     private func flushLogsToFile() {
         wg_log(.info, message: "Build info: \(appInfo.debugInfoString)")
         guard let path = FileManager.logTextFileURL?.path else {

@@ -26,6 +26,7 @@ import DependenciesMacros
 
 import struct Domain.ServerConnectionIntent
 import struct Domain.StoredWireguardConfig
+import struct Domain.DiodeWireGuardSession
 import enum Domain.VPNFeatureFlagType
 import enum Domain.VpnProtocol
 import struct Domain.WireguardConfig
@@ -146,6 +147,30 @@ extension ManagerConfigurator {
             entryServerAddress: entryIP,
             ports: connectionIntent.tunnelSettings.ports,
             timestamp: date.now
+        )
+        var data = Data([UInt8(version.rawValue)])
+        let encodedConfig = try encoder.encode(storedConfig)
+        data.append(encodedConfig)
+        return data
+    }
+
+    static func secureDiodeConfigurationData(
+        session: DiodeWireGuardSession,
+        clientPrivateKey: String
+    ) throws -> Data {
+        @Dependency(\.date) var date
+
+        let encoder = JSONEncoder()
+        let version: StoredWireguardConfig.Version = .v2
+        let storedConfig = StoredWireguardConfig(
+            wireguardConfig: WireguardConfig(dns: ["1.1.1.1"]),
+            clientPrivateKey: clientPrivateKey,
+            serverPublicKey: session.serverPublicKey,
+            entryServerAddress: session.endpointHost,
+            ports: [session.listenPort],
+            timestamp: date.now,
+            clientAddressCidr: session.clientAddress,
+            listenPort: session.listenPort
         )
         var data = Data([UInt8(version.rawValue)])
         let encodedConfig = try encoder.encode(storedConfig)

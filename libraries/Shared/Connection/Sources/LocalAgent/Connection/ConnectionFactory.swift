@@ -131,19 +131,19 @@ extension LocalAgentFeatures {
     static func from(featureSet features: Set<ConnectionFeatureChange.AgentFeature>) -> LocalAgentFeatures? {
         let featuresObject = LocalAgentFeatures()
         for item in features {
-            featuresObject?.set(feature: item)
+            featuresObject.set(feature: item)
         }
         return featuresObject
     }
 
     static func from(connectionFeatures: VPNConnectionFeatures) -> LocalAgentFeatures? {
         let featuresObject = LocalAgentFeatures()
-        featuresObject?.setInt(Keys.netShield.rawValue, value: Int64(connectionFeatures.netshield.rawValue))
-        featuresObject?.setBool(Keys.vpnAccelerator.rawValue, value: connectionFeatures.vpnAccelerator)
-        connectionFeatures.bouncing.map { featuresObject?.setString(Keys.bouncing.rawValue, value: $0) }
-        featuresObject?.setBool(Keys.natType.rawValue, value: connectionFeatures.natType.flag)
-        connectionFeatures.safeMode.map { featuresObject?.setBool(Keys.safeMode.rawValue, value: $0) }
-        connectionFeatures.portForwarding.map { featuresObject?.setBool(Keys.portForwarding.rawValue, value: $0) }
+        featuresObject.setInt(Keys.netShield.rawValue, value: Int64(connectionFeatures.netshield.rawValue))
+        featuresObject.setBool(Keys.vpnAccelerator.rawValue, value: connectionFeatures.vpnAccelerator)
+        connectionFeatures.bouncing.map { featuresObject.setString(Keys.bouncing.rawValue, value: $0) }
+        featuresObject.setBool(Keys.natType.rawValue, value: connectionFeatures.natType.flag)
+        connectionFeatures.safeMode.map { featuresObject.setBool(Keys.safeMode.rawValue, value: $0) }
+        connectionFeatures.portForwarding.map { featuresObject.setBool(Keys.portForwarding.rawValue, value: $0) }
         return featuresObject
     }
 }

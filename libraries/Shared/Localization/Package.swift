@@ -17,7 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../../Foundations/Domain"),
         .package(path: "../../Foundations/Strings"),
@@ -31,7 +31,7 @@ let package = Package(
                 "Domain",
                 "Strings",
                 .product(name: "Dependencies", package: "swift-dependencies"),
-                .product(name: "ProtonCoreUtilities", package: "protoncore"),
+                .product(name: "ProtonCoreUtilities", package: "ProtonShims"),
             ],
             resources: [.process("Resources")]
         ),

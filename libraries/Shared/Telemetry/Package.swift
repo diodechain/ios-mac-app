@@ -17,7 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../Connection"),
         .package(path: "../ConnectionInventory"),
@@ -45,8 +45,8 @@ let package = Package(
                 .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "VPNShared", package: "NEHelper"),
                 .product(name: "VPNAppCore", package: "NEHelper"),
-                .product(name: "ProtonCorePaymentsV2", package: "protoncore"),
-                .product(name: "ProtonCoreTelemetry", package: "protoncore"),
+                .product(name: "ProtonCorePaymentsV2", package: "ProtonShims"),
+                .product(name: "ProtonCoreTelemetry", package: "ProtonShims"),
             ]
         ),
         .testTarget(

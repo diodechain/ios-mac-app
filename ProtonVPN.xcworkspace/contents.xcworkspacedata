@@ -11,7 +11,7 @@
             location = "group:external/wireguard-apple">
          </FileRef>
          <FileRef
-            location = "group:external/protoncore">
+            location = "group:libraries/External/ProtonShims">
          </FileRef>
          <FileRef
             location = "group:external/apple-fusion">
@@ -77,6 +77,9 @@
          </FileRef>
          <FileRef
             location = "group:libraries/Shared/Telemetry">
+         </FileRef>
+         <FileRef
+            location = "group:libraries/Shared/DiodeVPN">
          </FileRef>
       </Group>
       <Group

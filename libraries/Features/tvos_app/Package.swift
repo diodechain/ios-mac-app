@@ -14,7 +14,7 @@ let package = Package(
         .library(name: "tvOSTestSupport", targets: ["tvOSTestSupport"]),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../Modals"),
         .package(path: "../Payments"),
@@ -53,15 +53,15 @@ let package = Package(
                 .product(name: "ModalsServices", package: "Modals"),
                 .product(name: "VPNShared", package: "NEHelper"), // AuthKeychain
 
-                .product(name: "GoLibsCryptoVPNPatchedGo", package: "protoncore"),
-                .product(name: "ProtonCoreChallenge", package: "protoncore"),
-                .product(name: "ProtonCoreForceUpgrade", package: "protoncore"),
-                .product(name: "ProtonCoreFoundations", package: "protoncore"),
-                .product(name: "ProtonCoreNetworking", package: "protoncore"),
-                .product(name: "ProtonCorePaymentsV2", package: "protoncore"),
-                .product(name: "ProtonCoreUIFoundations", package: "protoncore"),
-                .product(name: "ProtonCoreServices", package: "protoncore"),
-                .product(name: "ProtonCoreAPIClient", package: "protoncore"),
+                .product(name: "GoLibsCryptoVPNPatchedGo", package: "ProtonShims"),
+                .product(name: "ProtonCoreChallenge", package: "ProtonShims"),
+                .product(name: "ProtonCoreForceUpgrade", package: "ProtonShims"),
+                .product(name: "ProtonCoreFoundations", package: "ProtonShims"),
+                .product(name: "ProtonCoreNetworking", package: "ProtonShims"),
+                .product(name: "ProtonCorePaymentsV2", package: "ProtonShims"),
+                .product(name: "ProtonCoreUIFoundations", package: "ProtonShims"),
+                .product(name: "ProtonCoreServices", package: "ProtonShims"),
+                .product(name: "ProtonCoreAPIClient", package: "ProtonShims"),
 
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "Dependencies", package: "swift-dependencies"),

@@ -17,7 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
         .package(path: "../../../external/apple-fusion"),
 
         .package(path: "../Strings"),
@@ -35,7 +35,7 @@ let package = Package(
                 "Localization",
                 .product(name: "fusion", package: "apple-fusion"),
                 .product(name: "SwiftOTP", package: "SwiftOTP"),
-                .product(name: "ProtonCoreTestingToolkitPerformance", package: "protoncore"),
+                .product(name: "ProtonCoreTestingToolkitPerformance", package: "ProtonShims"),
             ]
         ),
     ]

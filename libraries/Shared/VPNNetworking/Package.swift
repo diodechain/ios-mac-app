@@ -17,7 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../Localization"),
 
@@ -39,7 +39,7 @@ let package = Package(
                 .product(name: "VPNShared", package: "NEHelper"),
                 .product(name: "VPNAppCore", package: "NEHelper"),
 
-                .product(name: "GoLibsCryptoVPNPatchedGo", package: "protoncore"),
+                .product(name: "GoLibsCryptoVPNPatchedGo", package: "ProtonShims"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "IssueReporting", package: "xctest-dynamic-overlay"),
             ]

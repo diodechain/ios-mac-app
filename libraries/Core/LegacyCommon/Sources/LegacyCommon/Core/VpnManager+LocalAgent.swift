@@ -26,6 +26,7 @@ import Dependencies
 
 import ExtensionIPC
 import NetShield
+import ProtonCoreEnvironment
 import VPNAppCore
 import VPNShared
 

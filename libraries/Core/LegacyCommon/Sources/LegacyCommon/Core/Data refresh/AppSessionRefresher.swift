@@ -74,6 +74,10 @@ open class AppSessionRefresherImplementation: AppSessionRefresher {
     }
 
     public func refreshData() async {
+        guard !DiodeBackend.isEnabled else {
+            try? await attemptSilentLogIn()
+            return
+        }
         @Dependency(\.userSettingsClient) var userSettingsClient
         do {
             try await attemptSilentLogIn()
@@ -92,6 +96,7 @@ open class AppSessionRefresherImplementation: AppSessionRefresher {
     }
 
     public func refreshServerLoads() async {
+        guard !DiodeBackend.isEnabled else { return }
         guard loggedIn else { return }
 
         let lastKnownIp = (propertiesManager.userLocation?.ip).flatMap { TruncatedIp(ip: $0) }
@@ -106,6 +111,7 @@ open class AppSessionRefresherImplementation: AppSessionRefresher {
     }
 
     public func refreshAccount() async {
+        guard !DiodeBackend.isEnabled else { return }
         do {
             let credentials = try await vpnApiClient.clientCredentials()
             vpnKeychain.storeAndDetectDowngrade(vpnCredentials: credentials)
@@ -115,6 +121,7 @@ open class AppSessionRefresherImplementation: AppSessionRefresher {
     }
 
     public func refreshStreamingServices() async {
+        guard !DiodeBackend.isEnabled else { return }
         guard loggedIn else { return }
 
         do {

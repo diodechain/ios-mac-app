@@ -29,6 +29,8 @@ import ComposableArchitecture
 import PMLogger
 
 import CommonNetworking
+import DiodeConnection
+import Domain
 import LegacyCommon
 import VPNShared
 
@@ -114,6 +116,12 @@ class NavigationService {
             name: NSWorkspace.didWakeNotification,
             object: nil
         )
+
+        if DiodeSessionBootstrap.isEnabled {
+            try? await appSessionManager.establishDiodeNavigationSession()
+            showSidebar()
+            return
+        }
 
         if propertiesManager.startMinimized {
             await attemptSilentLogIn()

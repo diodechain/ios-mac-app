@@ -19,6 +19,9 @@
 import Combine
 import CommonNetworking
 import Dependencies
+import DiodeConnection
+import DiodeNetwork
+import Domain
 import Ergonomics
 import Foundation
 import LegacyCommon
@@ -74,6 +77,95 @@ extension DoHVPN {
             isConnected: false,
             isAppStateNotificationConnected: DoHVPN.isAppStateChangeNotificationInConnectedState
         )
+    }
+}
+
+extension DiodeBackendConfig {
+    static func configureFromObfuscatedConstantsIfNeeded() {
+        guard DiodeBackend.isEnabled else { return }
+        configure(
+            consoleApiKey: ObfuscatedConstants.diodeConsoleApiKey,
+            consoleFleetUuid: ObfuscatedConstants.diodeConsoleFleetUuid,
+            vpnYearlyProductId: ObfuscatedConstants.diodeVpnYearlyProductId
+        )
+    }
+}
+
+extension DiodeVpnNodeCacheKey: @retroactive DependencyKey {
+    public static var liveValue: DiodeVpnNodeCache {
+        guard DiodeBackend.isEnabled else { return .inMemory }
+        @Dependency(\.diodeVpnNodeRepository) var repository
+        return DiodeVpnNodeCache(
+            getAll: { repository.getAll().map(macVpnNode(from:)) },
+            lastRefreshEpochMs: { repository.getAll().map(\.updatedAt).max() },
+            replaceAll: { nodes in
+                let now = Int64(Date().timeIntervalSince1970 * 1000)
+                repository.replaceAll(nodes.map { macDiodeRecord(from: $0, updatedAt: now) })
+            },
+            recordConnectFailure: { repository.recordConnectFailure($0) },
+            getConnectFailureTimestamps: { repository.getConnectFailureTimestamps() }
+        )
+    }
+}
+
+private func macVpnNode(from record: DiodeVpnNodeRecord) -> VpnNode {
+    VpnNode(
+        nodeIdHex: record.nodeIdHex,
+        host: record.host,
+        name: record.name,
+        latitude: record.latitude,
+        longitude: record.longitude,
+        city: record.city,
+        country: record.country,
+        wsRpcURLOverride: record.wsRpcUrlOverride,
+        httpRpcURLOverride: record.httpRpcUrlOverride
+    )
+}
+
+private func macDiodeRecord(from node: VpnNode, updatedAt: Int64) -> DiodeVpnNodeRecord {
+    DiodeVpnNodeRecord(
+        nodeIdHex: node.nodeIdHex,
+        host: node.host,
+        name: node.name,
+        latitude: node.latitude,
+        longitude: node.longitude,
+        city: node.city,
+        country: node.country,
+        wsRpcUrlOverride: node.wsRpcURLOverride,
+        httpRpcUrlOverride: node.httpRpcURLOverride,
+        updatedAt: updatedAt
+    )
+}
+
+extension LogicalsClient: @retroactive DependencyKey {
+    public static var liveValue: LogicalsClient {
+        guard DiodeBackend.isEnabled else {
+            return .proton
+        }
+        return LogicalsClient(
+            fetchLogicals: { _, countryCode in
+                try await DiodeLogicalsLive.fetchLogicals(countryCode: countryCode)
+            },
+            fetchLoads: { _ in
+                try await DiodeLogicalsLive.fetchLoads()
+            }
+        )
+    }
+}
+
+enum DiodeBackendLiveConfiguration {
+    static func syncServerListIfNeeded() {
+        guard DiodeBackend.isEnabled else { return }
+        Task {
+            @Dependency(\.logicalsClient) var logicalsClient
+            @Dependency(\.serverManager) var serverManager
+            do {
+                let servers = try await logicalsClient.fetchLogicals(ip: nil, countryCode: nil)
+                serverManager.update(servers: servers, freeServersOnly: false, lastModifiedAt: nil)
+            } catch {
+                log.error("Failed to sync Diode server list", category: .api, metadata: ["error": "\(error)"])
+            }
+        }
     }
 }
 

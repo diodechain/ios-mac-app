@@ -33,6 +33,8 @@ import ProtonCoreObservability
 import ProtonCoreServices
 
 import CommonNetworking
+import DiodeConnection
+import Domain
 import LegacyCommon
 import VPNAppCore
 import VPNShared
@@ -112,6 +114,19 @@ final class LoginViewModel: ObservableObject {
 
     @MainActor
     func logInSilently() async {
+        if DiodeSessionBootstrap.isEnabled {
+            logInInProgress?()
+            do {
+                try await appSessionManager.establishDiodeNavigationSession()
+                NSApp.setActivationPolicy(.accessory)
+                checkForUpdatesInBackground()
+            } catch {
+                specialErrorCaseNotification(error)
+                navService.handleSilentLoginFailure()
+            }
+            return
+        }
+
         logInInProgress?()
 
         do {
@@ -128,6 +143,18 @@ final class LoginViewModel: ObservableObject {
 
     @MainActor
     func logInAppeared() async {
+        if DiodeSessionBootstrap.isEnabled {
+            logInInProgress?()
+            do {
+                try await appSessionManager.establishDiodeNavigationSession()
+                checkForUpdatesInBackground()
+            } catch {
+                specialErrorCaseNotification(error)
+                logInFailure?(error.localizedDescription, nil)
+            }
+            return
+        }
+
         guard initialError == nil else {
             logInFailure?(initialError, nil)
             return

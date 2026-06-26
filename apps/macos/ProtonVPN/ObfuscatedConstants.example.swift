@@ -42,4 +42,8 @@ class ObfuscatedConstants {
     static let humanVerificationV3Host = ""
 
     static let vpnIAPIdentifiers: Set<String> = []
+
+    static let diodeConsoleApiKey: String = ""
+    static let diodeConsoleFleetUuid: String = ""
+    static let diodeVpnYearlyProductId: String = "diode_vpn_yearly"
 }

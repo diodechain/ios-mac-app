@@ -1,0 +1,8 @@
+//
+// DiodeBackend-Debug.xcconfig
+// Applied to the ProtonVPN-mac app target when building Debug-Diode (DiodeVPN-macOS scheme).
+//
+
+#include "Config.xcconfig"
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG TLS_PIN_DISABLE DIODE_BACKEND $(REDESIGN_SWIFTFLAGS)

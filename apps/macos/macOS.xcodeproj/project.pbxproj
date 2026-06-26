@@ -114,6 +114,7 @@
 		77B1B61B2CB5ACFB002D76B0 /* MacOSMainMeasurementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B1B6142CB5AC8F002D76B0 /* MacOSMainMeasurementsTests.swift */; };
 		77DA78742CB7F83800E12F5C /* Localization in Frameworks */ = {isa = PBXBuildFile; productRef = 77DA78732CB7F83800E12F5C /* Localization */; };
 		A405F2602F61A26D00953E7B /* Payments in Frameworks */ = {isa = PBXBuildFile; productRef = A405F25F2F61A26D00953E7B /* Payments */; };
+		A4D10E012F6A000100A26EA8 /* DiodeConnection in Frameworks */ = {isa = PBXBuildFile; productRef = A4D10E022F6A000100A26EA8 /* DiodeConnection */; };
 		A443C5732E3B76BC003D91FA /* NATPMPUI in Frameworks */ = {isa = PBXBuildFile; productRef = A443C5722E3B76BC003D91FA /* NATPMPUI */; };
 		A443C5752E3B76D2003D91FA /* QuickSettingDetailPFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443C5742E3B76C6003D91FA /* QuickSettingDetailPFViewController.swift */; };
 		A44463CC2ECF178E0008288D /* ProtonVPN_ike_root.der in Resources */ = {isa = PBXBuildFile; fileRef = A44463CB2ECF178E0008288D /* ProtonVPN_ike_root.der */; };
@@ -1003,6 +1004,8 @@
 		F34AC17627F33E350007FF93 /* ProtonReachabilityChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProtonReachabilityChecker.swift; path = ../../../../../macos/ProtonVPN/Scenes/Login/Services/ProtonReachabilityChecker.swift; sourceTree = "<group>"; };
 		F34AC17827F345BB0007FF93 /* NSProgressIndicator+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NSProgressIndicator+Extensions.swift"; path = "../../../macos/ProtonVPN/Extensions/NSProgressIndicator+Extensions.swift"; sourceTree = "<group>"; };
 		F3747C0326D4E45100EF2F00 /* macOSNetworkingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = macOSNetworkingDelegate.swift; path = ../../../../../macos/ProtonVPN/Scenes/Common/Services/macOSNetworkingDelegate.swift; sourceTree = "<group>"; };
+		D1ODE003000000000000003 /* DiodeBackend-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DiodeBackend-Debug.xcconfig; sourceTree = "<group>"; };
+		D1ODE004000000000000004 /* DiodeBackend-WireGuard-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DiodeBackend-WireGuard-Debug.xcconfig; sourceTree = "<group>"; };
 		F38BB451265C0D8F00329619 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../macos/Config.xcconfig; sourceTree = "<group>"; };
 		F3B3BEB6279EBD5200F85BDF /* UpsellGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpsellGradientView.swift; sourceTree = "<group>"; };
 		F3F48B1C2806D76500E0B814 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BannerView.swift; path = ../../../../../macos/ProtonVPN/Scenes/Common/Views/BannerView.swift; sourceTree = "<group>"; };
@@ -1149,6 +1152,7 @@
 				4CD1F7952A72DE0400E8AB01 /* ProtonCoreCryptoVPNPatchedGoImplementation in Frameworks */,
 				E5E48CF72A4C363700B09111 /* ComposableArchitecture in Frameworks */,
 				E5D1A5A22F43292100A26EA8 /* Countries in Frameworks */,
+				A4D10E012F6A000100A26EA8 /* DiodeConnection in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1776,6 +1780,8 @@
 				E5BDD80A2A67FD3700F3BB7C /* ProtonVPN-mac-redesign-Info.plist */,
 				E551EB0629AF7B7B00B6612D /* swiftgen.yml */,
 				F38BB451265C0D8F00329619 /* Config.xcconfig */,
+				D1ODE003000000000000003 /* DiodeBackend-Debug.xcconfig */,
+				D1ODE004000000000000004 /* DiodeBackend-WireGuard-Debug.xcconfig */,
 				ADA595EB2F34C02E0087E150 /* Version.xcconfig */,
 				EED534831EEC112000013607 /* ProtonVPN */,
 				EEB404C81F77F639006CF513 /* ProtonVPNStarter */,
@@ -2872,6 +2878,7 @@
 				E5776A2C2EC5D5ED00A0F9EE /* Telemetry */,
 				E5D1A5A12F43292100A26EA8 /* Countries */,
 				A405F25F2F61A26D00953E7B /* Payments */,
+				A4D10E022F6A000100A26EA8 /* DiodeConnection */,
 			);
 			productName = ProtonVPN;
 			productReference = EED534811EEC112000013607 /* ProtonVPN.app */;
@@ -5141,6 +5148,392 @@
 			};
 			name = Release;
 		};
+		323100F326AE469FBAE5AC86 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-Diode";
+		};
+		5D4A963C008942358F509206 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "ProTUN-Extension-Desktop/ProTUN_Extension_Desktop.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J6S6Q257EK;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ProTUN-Extension-Desktop/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ProTUN-Extension-Desktop";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Proton Technologies AG. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.protonvpn.mac.ProTUN-Extension-Desktop";
+				PRODUCT_NAME = "$(inherited)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug-Diode";
+		};
+		1BA529F0793C4686BDB5E81A /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = J6S6Q257EK;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ProtonVPNUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonmail.vpn.ProtonVPNUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = ProtonVPN;
+			};
+			name = "Debug-Diode";
+		};
+		343A734164B0434B9E3B97C7 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = J6S6Q257EK;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ProtonVPNTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonvpn.ProtonVPNTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = "$(BUILD_DIR)/Products/$(CONFIGURATION)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProtonVPN.app/Contents/MacOS/ProtonVPN";
+			};
+			name = "Debug-Diode";
+		};
+		EBC473AEDEDE4BCBA4CEDBEF /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "ProtonVPNmac-redesign-UITests/Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.protonvpn.mac.ProtonVPNmac-redesign-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "ProtonVPN-mac-redesign";
+			};
+			name = "Debug-Diode";
+		};
+		662FEEB8BF5546A49CF99A0D /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = J6S6Q257EK;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PATH = "${PATH}:/Users/proton/.goenv/versions/1.18.3/bin:/opt/homebrew/opt/go/bin:/opt/homebrew/bin:/opt/homebrew/opt/go@$(GO_VERSION)/bin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-Diode";
+		};
+		02C71F10A30C419BA52B9852 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1ODE004000000000000004 /* DiodeBackend-WireGuard-Debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "ProtonVPN WireGuard/WireGuard.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1234;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = J6S6Q257EK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "ProtonVPN WireGuard/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.protonvpn.mac.WireGuard-Extension";
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(inherited)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "../../libraries/WireguardExtensionSupport/WG/WireGuardNetworkExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug-Diode";
+		};
+		87125C8995B7475E99332369 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "ProtonVPN Plutonium/Plutonium.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = J6S6Q257EK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "ProtonVPN Plutonium/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.protonvpn.mac.Transparent-Proxy";
+				PRODUCT_NAME = "$(inherited)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ProtonVPN Plutonium/PlutoniumNetworkExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug-Diode";
+		};
+		336EC70C78744915A0E7B6B8 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = J6S6Q257EK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = ProtonVPNStarter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonvpn.ProtonVPNStarter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug-Diode";
+		};
+		370809A9381348DFA6F767B2 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F38BB451265C0D8F00329619 /* Config.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CODE_COVERAGE = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				NE_ENTITLEMENT_SUFFIX = "";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug-Diode";
+		};
+		CC4B75AB10D749FE87EF72C6 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1ODE003000000000000003 /* DiodeBackend-Debug.xcconfig */;
+			buildSettings = {
+				APS_ENVIRONMENT = development;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconDebug;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ProtonVPN/ProtonVPN.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = J6S6Q257EK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ProtonVPN/Frameworks",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"REDESIGN=$(REDESIGN)",
+				);
+				INFOPLIST_FILE = ProtonVPN/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MACOSX_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				OTHER_SWIFT_FLAGS = "$(REDESIGN_SWIFTFLAGS)";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonvpn.mac;
+				PRODUCT_NAME = ProtonVPN;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ProtonVPN/ProtonVPN-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = "Debug-Diode";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -5148,6 +5541,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				660BE5ED2ED5B93200CE904F /* Debug */,
+				323100F326AE469FBAE5AC86 /* Debug-Diode */,
 				660BE5EE2ED5B93200CE904F /* Release */,
 				660BE5EF2ED5B93200CE904F /* Profile */,
 				660BE5F02ED5B93200CE904F /* Debug-Staging */,
@@ -5159,6 +5553,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6640FF4B2ED5B24C004A4A9A /* Debug */,
+				5D4A963C008942358F509206 /* Debug-Diode */,
 				6640FF4C2ED5B24C004A4A9A /* Release */,
 				6640FF4D2ED5B24C004A4A9A /* Profile */,
 				6640FF4E2ED5B24C004A4A9A /* Debug-Staging */,
@@ -5170,6 +5565,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D591170D229F9574005829DA /* Debug */,
+				1BA529F0793C4686BDB5E81A /* Debug-Diode */,
 				D591170E229F9574005829DA /* Release */,
 				4CCAA7F52D3AC03E007A0224 /* Profile */,
 				E1034B4022EB18E40022A43B /* Debug-Staging */,
@@ -5181,6 +5577,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E15B755420FA83CB0022C406 /* Debug */,
+				343A734164B0434B9E3B97C7 /* Debug-Diode */,
 				E15B755620FA83CB0022C406 /* Release */,
 				4CCAA7F42D3AC03E007A0224 /* Profile */,
 				E1034B3F22EB18E40022A43B /* Debug-Staging */,
@@ -5192,6 +5589,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E5C00F112A15FC6E0030076F /* Debug */,
+				EBC473AEDEDE4BCBA4CEDBEF /* Debug-Diode */,
 				E5C00F122A15FC6E0030076F /* Release */,
 				4CCAA7F62D3AC03E007A0224 /* Profile */,
 				E5C00F132A15FC6E0030076F /* Debug-Staging */,
@@ -5203,6 +5601,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E93C4F1226A1C1450006680C /* Debug */,
+				662FEEB8BF5546A49CF99A0D /* Debug-Diode */,
 				E93C4F1326A1C1450006680C /* Release */,
 				4CCAA7F32D3AC03E007A0224 /* Profile */,
 				E93C4F1426A1C1450006680C /* Debug-Staging */,
@@ -5214,6 +5613,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E93C4F2226A1C1F30006680C /* Debug */,
+				02C71F10A30C419BA52B9852 /* Debug-Diode */,
 				E93C4F2326A1C1F30006680C /* Release */,
 				4CCAA7F22D3AC03E007A0224 /* Profile */,
 				E93C4F2426A1C1F30006680C /* Debug-Staging */,
@@ -5225,6 +5625,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EBB751CF2DA7D4C900F79994 /* Debug */,
+				87125C8995B7475E99332369 /* Debug-Diode */,
 				EBB751D02DA7D4C900F79994 /* Release */,
 				EBB751D12DA7D4C900F79994 /* Profile */,
 				EBB751D22DA7D4C900F79994 /* Debug-Staging */,
@@ -5236,6 +5637,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EEB404D41F77F639006CF513 /* Debug */,
+				336EC70C78744915A0E7B6B8 /* Debug-Diode */,
 				EEB404D51F77F639006CF513 /* Release */,
 				4CCAA7F12D3AC03E007A0224 /* Profile */,
 				E1034B3E22EB18E40022A43B /* Debug-Staging */,
@@ -5247,6 +5649,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EED5348E1EEC112000013607 /* Debug */,
+				370809A9381348DFA6F767B2 /* Debug-Diode */,
 				EED5348F1EEC112000013607 /* Release */,
 				4CCAA7EF2D3AC03E007A0224 /* Profile */,
 				E1034B3B22EB18E40022A43B /* Debug-Staging */,
@@ -5258,6 +5661,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				EED534911EEC112000013607 /* Debug */,
+				CC4B75AB10D749FE87EF72C6 /* Debug-Diode */,
 				EED534921EEC112000013607 /* Release */,
 				4CCAA7F02D3AC03E007A0224 /* Profile */,
 				E1034B3C22EB18E40022A43B /* Debug-Staging */,
@@ -5454,6 +5858,10 @@
 		A405F25F2F61A26D00953E7B /* Payments */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Payments;
+		};
+		A4D10E022F6A000100A26EA8 /* DiodeConnection */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DiodeConnection;
 		};
 		A443C5722E3B76BC003D91FA /* NATPMPUI */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -241,7 +241,7 @@
 		80C4A4E72BCFBC4200DA1A80 /* TestsTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsTimer.swift; sourceTree = "<group>"; };
 		80C4A4EA2BCFBCDA00DA1A80 /* MainMeasurements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMeasurements.swift; sourceTree = "<group>"; };
 		80C4A4EC2BCFBDA900DA1A80 /* ProtonVPN-iOS-SLI-All.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ProtonVPN-iOS-SLI-All.xctestplan"; sourceTree = "<group>"; };
-		A41554D12ECC84B400794B1A /* VPNLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = VPNLaunchScreen.storyboard; path = "../../external/protoncore/libraries/UIFoundations/Resources-iOS/Resources-iOS/LaunchScreenStoryboards/VPNLaunchScreen.storyboard"; sourceTree = SOURCE_ROOT; };
+		A41554D12ECC84B400794B1A /* VPNLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VPNLaunchScreen.storyboard; sourceTree = "<group>"; };
 		A44463C72ECF17200008288D /* ProtonVPN_ike_root.der */ = {isa = PBXFileReference; lastKnownFileType = file; name = ProtonVPN_ike_root.der; path = ../../libraries/Core/LegacyCommon/Sources/LegacyCommon/Resources/ProtonVPN_ike_root.der; sourceTree = SOURCE_ROOT; };
 		A44468732ECF5DEC0008288D /* SharedDependencies+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SharedDependencies+Live.swift"; path = "../../libraries/Features/ios_app/Sources/ios_app/Scenes/Common/Supporting Files/SharedDependencies+Live.swift"; sourceTree = SOURCE_ROOT; };
 		A4A30B2C2EDD90BA0086D938 /* Dependencies+Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dependencies+Live.swift"; sourceTree = "<group>"; };
@@ -310,6 +310,8 @@
 		F377836626E644BC00392958 /* ProfilesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilesTests.swift; sourceTree = "<group>"; };
 		F377836826E644BC00392958 /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		F377836926E644BC00392958 /* SignupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTests.swift; sourceTree = "<group>"; };
+		D1ODE001000000000000001 /* DiodeBackend-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DiodeBackend-Debug.xcconfig; sourceTree = "<group>"; };
+		D1ODE002000000000000002 /* DiodeBackend-WireGuard-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DiodeBackend-WireGuard-Debug.xcconfig; sourceTree = "<group>"; };
 		F38BB450265C0CF600329619 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = ../ios/Config.xcconfig; sourceTree = "<group>"; };
 		F3B783E526E6428C006768A8 /* HomeRobot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRobot.swift; sourceTree = "<group>"; };
 		F3B783E726E6428C006768A8 /* SettingsRobot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRobot.swift; sourceTree = "<group>"; };
@@ -463,6 +465,8 @@
 				EB7804852D6CF6DF00E75937 /* ConnectWidgetExtensionProfile.entitlements */,
 				A44463C72ECF17200008288D /* ProtonVPN_ike_root.der */,
 				F38BB450265C0CF600329619 /* Config.xcconfig */,
+				D1ODE001000000000000001 /* DiodeBackend-Debug.xcconfig */,
+				D1ODE002000000000000002 /* DiodeBackend-WireGuard-Debug.xcconfig */,
 				ADA595EC2F34C0670087E150 /* Version.xcconfig */,
 				791DE5DB208DDA3000A29EA5 /* ProtonVPN */,
 				E9445D6026528A790075FD31 /* WireGuardiOS Extension */,
@@ -2511,6 +2515,293 @@
 			};
 			name = Profile;
 		};
+		662B0F0D114146B8BE622DCF /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "ProTUN-Extension-Mobile/ProTUN_Extension_Mobile.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ProTUN-Extension-Mobile/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ProTUN-Extension-Mobile";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Proton Technologies AG. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.protonmail.vpn.ProTUN-Extension-Mobile";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-Diode";
+		};
+		751662CAEDB541E3A4C93CA9 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F38BB450265C0CF600329619 /* Config.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_CODE_COVERAGE = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1028;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "Debug-Diode";
+		};
+		6174B325FA014F128B5652CE /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1ODE001000000000000001 /* DiodeBackend-Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AlternateAppIcon1;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "ProtonVPN/ProtonVPN-DEBUG.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1085;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/OpenPGP/headers/",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ProtonVPN/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonmail.vpn;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_INCLUDE_PATHS = CommonCrypto;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = "Debug-Diode";
+		};
+		4E00057A583D44629DD0F0E4 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				INFOPLIST_FILE = ProtonVPNTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = prt.ProtonVPNTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ProtonVPN.app/ProtonVPN";
+			};
+			name = "Debug-Diode";
+		};
+		7C8980B214204594ACABBCD9 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"TEST_VAR=$(TEST_VAR)",
+				);
+				INFOPLIST_FILE = ProtonVPNUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonmail.vpn.ProtonVPNUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ProtonVPN;
+			};
+			name = "Debug-Diode";
+		};
+		E721C42AB11A4D3A9F11D7AD /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = ConnectWidget/ConnectWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ConnectWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ConnectWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Proton Technologies AG. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.protonmail.vpn.ConnectWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-Diode";
+		};
+		0702C1DDFAA84A249F9A194A /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PATH = "${PATH}:/Users/proton/.goenv/versions/1.18.3/bin:/opt/homebrew/opt/go/bin:/opt/homebrew/bin:/opt/homebrew/opt/go@$(GO_VERSION)/bin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Debug-Diode";
+		};
+		E21C3415413B47D99310A6D0 /* Debug-Diode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1ODE002000000000000002 /* DiodeBackend-WireGuard-Debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "WireGuardiOS Extension/WireGuardiOS_Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1085;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2SB5Z68H26;
+				INFOPLIST_FILE = "WireGuardiOS Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = "$(DEPLOYMENT_TARGET)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "ch.protonmail.vpn.WireGuardiOS-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "../../libraries/WireguardExtensionSupport/WG/WireGuardNetworkExtension-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-Diode";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2518,6 +2809,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6640FF332ED5B09B004A4A9A /* Debug */,
+				662B0F0D114146B8BE622DCF /* Debug-Diode */,
 				6640FF342ED5B09B004A4A9A /* Debug-Staging */,
 				6640FF352ED5B09B004A4A9A /* Release */,
 				6640FF362ED5B09B004A4A9A /* Profile */,
@@ -2529,6 +2821,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				791DE601208DDA3200A29EA5 /* Debug */,
+				751662CAEDB541E3A4C93CA9 /* Debug-Diode */,
 				E1144E3F22E9C5150087A685 /* Debug-Staging */,
 				791DE602208DDA3200A29EA5 /* Release */,
 				4CCAA7F72D3AC0C4007A0224 /* Profile */,
@@ -2540,6 +2833,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				791DE604208DDA3200A29EA5 /* Debug */,
+				6174B325FA014F128B5652CE /* Debug-Diode */,
 				E1144E4022E9C5150087A685 /* Debug-Staging */,
 				791DE605208DDA3200A29EA5 /* Release */,
 				4CCAA7F82D3AC0C4007A0224 /* Profile */,
@@ -2551,6 +2845,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				791DE607208DDA3200A29EA5 /* Debug */,
+				4E00057A583D44629DD0F0E4 /* Debug-Diode */,
 				E1144E4622E9C5150087A685 /* Debug-Staging */,
 				791DE608208DDA3200A29EA5 /* Release */,
 				4CCAA7FC2D3AC0C4007A0224 /* Profile */,
@@ -2562,6 +2857,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5811D84229BBD870087B63A /* Debug */,
+				7C8980B214204594ACABBCD9 /* Debug-Diode */,
 				E1144E4722E9C5150087A685 /* Debug-Staging */,
 				D5811D85229BBD870087B63A /* Release */,
 				4CCAA7FD2D3AC0C4007A0224 /* Profile */,
@@ -2573,6 +2869,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E55CCAAC2D30122100FD0AAD /* Debug */,
+				E721C42AB11A4D3A9F11D7AD /* Debug-Diode */,
 				E55CCAAD2D30122100FD0AAD /* Debug-Staging */,
 				E55CCAAE2D30122100FD0AAD /* Release */,
 				EBE8244F2D5BAE0D00E8D787 /* Profile */,
@@ -2584,6 +2881,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9445D57265289FE0075FD31 /* Debug */,
+				0702C1DDFAA84A249F9A194A /* Debug-Diode */,
 				E9445D58265289FE0075FD31 /* Debug-Staging */,
 				E9445D59265289FE0075FD31 /* Release */,
 				4CCAA7FE2D3AC0C4007A0224 /* Profile */,
@@ -2595,6 +2893,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9445D6926528A790075FD31 /* Debug */,
+				E21C3415413B47D99310A6D0 /* Debug-Diode */,
 				E9445D6A26528A790075FD31 /* Debug-Staging */,
 				E9445D6B26528A790075FD31 /* Release */,
 				4CCAA7F92D3AC0C4007A0224 /* Profile */,

@@ -1,0 +1,8 @@
+//
+// DiodeBackend-Debug.xcconfig
+// Applied to the ProtonVPN app target when building Debug-Diode (DiodeVPN-iOS scheme).
+//
+
+#include "Config.xcconfig"
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG TLS_PIN_DISABLE DIODE_BACKEND

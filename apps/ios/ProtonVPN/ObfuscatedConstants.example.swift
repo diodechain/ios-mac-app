@@ -61,4 +61,8 @@ class ObfuscatedConstants {
 
     static let twoFASecurityKey: String = ""
     static let twoFAandTwoPassSecurityKey: String = ""
+
+    static let diodeConsoleApiKey: String = ""
+    static let diodeConsoleFleetUuid: String = ""
+    static let diodeVpnYearlyProductId: String = "diode_vpn_yearly"
 }

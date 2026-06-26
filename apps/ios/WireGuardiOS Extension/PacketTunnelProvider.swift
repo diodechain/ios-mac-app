@@ -34,6 +34,7 @@ final class PacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPIServiceDel
     @Dependency(\.vpnAuthenticationStorage) private var vpnAuthenticationStorage
 
     private var currentWireguardServer: StoredWireguardConfig?
+    private var storedConfigVersion: StoredWireguardConfig.Version?
     // Currently connected logical server id
     private var connectedLogicalId: String?
     // Currently connected server ip id
@@ -115,6 +116,11 @@ final class PacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPIServiceDel
     }
 
     private func connectionEstablished(newVpnCertificateFeatures: VPNConnectionFeatures?) {
+        if shouldSkipCertificateRefresh {
+            wg_log(.info, message: "Skipping certificate refresh for Diode WireGuard config v2")
+            return
+        }
+
         if let newVpnCertificateFeatures {
             log.debug("Connection restarted with another server. Will regenerate certificate.")
             certificateRefreshManager.checkRefreshCertificateNow(features: newVpnCertificateFeatures, userInitiated: true) { result in
@@ -147,6 +153,10 @@ final class PacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPIServiceDel
         }
 
         wg_log(.info, message: "Starting server status refresh manager with logical \(connectedLogicalId) and server \(connectedIpId).")
+    }
+
+    private var shouldSkipCertificateRefresh: Bool {
+        DiodeBackend.isEnabled && storedConfigVersion == .v2
     }
 
     private lazy var adapter: WireGuardAdapter = .init(with: self) { _, message in
@@ -330,6 +340,7 @@ final class PacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPIServiceDel
         }
 
         currentWireguardServer = storedConfig
+        storedConfigVersion = StoredWireguardConfig.version(from: keychainConfigData)
 
         connectedLogicalId = tunnelProviderProtocol?.connectedLogicalId
         connectedIpId = tunnelProviderProtocol?.connectedServerIpId
@@ -452,6 +463,11 @@ final class PacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPIServiceDel
             stopTestingConnectivity()
         #endif
 
+        guard !shouldSkipCertificateRefresh else {
+            completionHandler()
+            return
+        }
+
         certificateRefreshManager.suspend {
             self.serverStatusRefreshManager.suspend {
                 completionHandler()
@@ -465,6 +481,10 @@ final class PacketTunnelProvider: NEPacketTunnelProvider, ExtensionAPIServiceDel
         #if CHECK_CONNECTIVITY
             startTestingConnectivity()
         #endif
+
+        guard !shouldSkipCertificateRefresh else {
+            return
+        }
 
         certificateRefreshManager.resume {}
     }

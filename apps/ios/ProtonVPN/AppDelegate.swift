@@ -45,6 +45,12 @@ final class AppDelegate: UIResponder {
         // Inject crypto implementation (binary framework, must be in app target)
         injectDefaultCryptoImplementation()
 
+        DiodeBackendLiveConfiguration.configureIfNeeded(
+            consoleApiKey: ObfuscatedConstants.diodeConsoleApiKey,
+            consoleFleetUuid: ObfuscatedConstants.diodeConsoleFleetUuid,
+            vpnYearlyProductId: ObfuscatedConstants.diodeVpnYearlyProductId
+        )
+
         appDelegateService.performEarlySetup()
     }
 }

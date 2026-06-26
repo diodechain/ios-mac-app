@@ -1,0 +1,6 @@
+//
+// DiodeBackend-WireGuard-Debug.xcconfig
+// Applied to WireGuardiOS Extension when building Debug-Diode (DiodeVPN-iOS scheme).
+//
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = WG_EXTENSION DEBUG FREQUENT_AUTH_CERT_REFRESH CHECK_CONNECTIVITY DIODE_BACKEND

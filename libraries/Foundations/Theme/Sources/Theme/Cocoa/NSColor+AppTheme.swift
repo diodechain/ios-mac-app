@@ -160,7 +160,7 @@ import SwiftUI
                 if CP.TextNorm.redComponent == 1,
                    CP.TextNorm.blueComponent == 1,
                    CP.TextNorm.greenComponent == 1 {
-                    .init(red: 255, green: 255, blue: 254)
+                    NSColor(calibratedRed: 1, green: 1, blue: 254 / 255, alpha: 1)
                 } else {
                     Asset.vpnCarbonTextNorm.color
                 }

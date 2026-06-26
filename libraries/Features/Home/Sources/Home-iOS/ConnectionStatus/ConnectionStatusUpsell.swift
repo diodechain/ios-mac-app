@@ -72,7 +72,7 @@ struct ConnectionStatusUpsell: View {
                         .themeFont(.body3(emphasised: false))
                 }
             }
-            IconProvider.chevronRight
+            IconProvider.chevronRight.swiftUIImage
                 .renderingMode(.template)
                 .foregroundStyle(Color(.text, .hint))
         }

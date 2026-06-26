@@ -62,14 +62,15 @@ public struct SharedPropertiesFeature {
         case watchAnnouncementBanner
     }
 
-    private static let connectionStatusStream: AsyncStream<VPNConnectionStatus> = if FeatureFlagsRepository.isConnectionFeatureEnabled {
+    private static let connectionStatusStream: AsyncStream<VPNConnectionStatus> =
+        if FeatureFlagsRepository.isConnectionFeatureEnabled || DiodeBackend.isEnabled {
         Dependency(\.connectionBridge).wrappedValue.statusStream()
     } else {
         Dependency(\.vpnConnectionStatusPublisher).wrappedValue()
     }
 
     private let longLivingConnectionStatusEffect: Effect<Action> = .run { @MainActor send in
-        if !FeatureFlagsRepository.isConnectionFeatureEnabled {
+        if !FeatureFlagsRepository.isConnectionFeatureEnabled, !DiodeBackend.isEnabled {
             // Legacy connection status stream does not yield an initial value
             let initialConnectionStatus = await Dependency(\.vpnConnectionStatus).wrappedValue()
             send(.newConnectionStatus(initialConnectionStatus))

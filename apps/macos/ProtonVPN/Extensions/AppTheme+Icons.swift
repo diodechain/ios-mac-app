@@ -26,8 +26,8 @@ import Theme
 public extension AppTheme {
     @dynamicMemberLookup
     enum Icon {
-        static subscript(dynamicMember keyPath: KeyPath<IconProviderBase, NSImage>) -> NSImage {
-            IconProvider[keyPath: keyPath]
+        static subscript(dynamicMember keyPath: KeyPath<ProtonIconSet, ProtonIcon>) -> NSImage {
+            IconProvider[dynamicMember: keyPath]
         }
 
         static func flag(countryCode: String, style: AppTheme.FlagStyle = .plain) -> NSImage? {
@@ -40,7 +40,8 @@ public extension AppTheme {
         #if canImport(SwiftUI)
             static func flag(countryCode: String, style: AppTheme.FlagStyle = .plain) -> Image? {
                 if style == .plain {
-                    return IconProvider.flag(forCountryCode: countryCode)
+                    guard let icon = IconProvider.flag(forCountryCode: countryCode) else { return nil }
+                    return Image(icon)
                 }
                 return Image(style.imageName(countryCode: countryCode))
             }

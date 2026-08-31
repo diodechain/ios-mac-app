@@ -157,7 +157,7 @@ struct PlutoniumSelectionButtonLabel: View {
                 .frame(height: 20)
             }
             Spacer(minLength: 0)
-            IconProvider.chevronRight
+            IconProvider.chevronRight.swiftUIImage
                 .resizable()
                 .frame(.square(.themeSpacing16))
         }

@@ -137,7 +137,7 @@ let package = Package(
         .target(name: "ProtonCoreLog"),
         .target(
             name: "ProtonCoreObservability",
-            dependencies: ["ProtonCoreNetworking"]
+            dependencies: ["ProtonCoreNetworking", "ProtonCoreServices"]
         ),
         .target(
             name: "ProtonCoreForceUpgrade",

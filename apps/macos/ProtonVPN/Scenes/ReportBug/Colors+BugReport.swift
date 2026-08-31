@@ -23,21 +23,21 @@ import SwiftUI
 public extension BugReport.Colors {
     init() {
         self.init(
-            primary: ColorProvider.Primary,
-            interactive: ColorProvider.InteractionNorm,
-            interactiveSecondary: ColorProvider.InteractionNormActive,
-            interactiveActive: ColorProvider.InteractionNormHover,
-            interactiveDisabled: ColorProvider.InteractionWeak,
-            textPrimary: ColorProvider.TextNorm,
-            textSecondary: ColorProvider.TextWeak,
-            textAccent: ColorProvider.TextHint,
-            background: ColorProvider.BackgroundNorm,
-            backgroundWeak: ColorProvider.BackgroundWeak,
-            backgroundStrong: ColorProvider.BackgroundStrong,
-            backgroundUpdateButton: ColorProvider.InteractionWeak,
-            separator: ColorProvider.BorderWeak,
-            qfIcon: ColorProvider.SignalWarning,
-            externalLinkIcon: ColorProvider.TextHint
+            primary: Color(nsColor: ColorProvider.Primary),
+            interactive: Color(nsColor: ColorProvider.InteractionNorm),
+            interactiveSecondary: Color(nsColor: ColorProvider.InteractionNormActive),
+            interactiveActive: Color(nsColor: ColorProvider.InteractionNormHover),
+            interactiveDisabled: Color(nsColor: ColorProvider.InteractionWeak),
+            textPrimary: Color(nsColor: ColorProvider.TextNorm),
+            textSecondary: Color(nsColor: ColorProvider.TextWeak),
+            textAccent: Color(nsColor: ColorProvider.TextHint),
+            background: Color(nsColor: ColorProvider.BackgroundNorm),
+            backgroundWeak: Color(nsColor: ColorProvider.BackgroundWeak),
+            backgroundStrong: Color(nsColor: ColorProvider.BackgroundStrong),
+            backgroundUpdateButton: Color(nsColor: ColorProvider.InteractionWeak),
+            separator: Color(nsColor: ColorProvider.BorderWeak),
+            qfIcon: Color(nsColor: ColorProvider.SignalWarning),
+            externalLinkIcon: Color(nsColor: ColorProvider.TextHint)
         )
     }
 }

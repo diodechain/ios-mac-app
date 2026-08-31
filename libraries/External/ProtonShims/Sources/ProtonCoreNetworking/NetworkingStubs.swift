@@ -83,6 +83,7 @@ public struct DeviceVerifyParameters {
 public enum HumanVerifyFinishReason {
     case success
     case cancelled
+    case verification(header: [String: Any], verificationCodeBlock: ((@escaping (String) -> Void) -> Void)?)
 }
 
 public struct Credential: Sendable {
@@ -142,6 +143,7 @@ public final class AuthCredential: NSObject {
     public var scopes: [String]
     public var mailboxPassword: String = ""
     public var isCredentialLess: Bool = false
+    public var userID: String = ""
     private var password: String?
     private var salt: String?
     private var privateKey: String?
@@ -153,6 +155,7 @@ public final class AuthCredential: NSObject {
         self.scopes = credential.scopes
         self.mailboxPassword = credential.mailboxPassword
         self.isCredentialLess = credential.isCredentialLess
+        self.userID = credential.userID
         super.init()
     }
 
@@ -283,11 +286,11 @@ public final class PMAPIService: APIService {
     public func setSessionUID(uid _: String) {}
 
     public func acquireSessionIfNeeded(completion: @escaping (Result<SessionAcquiringResult, Error>) -> Void) {
-        completion(.success(.sessionAlreadyPresent(credential: nil)))
+        completion(.success(.sessionAlreadyPresent(AcquiredSessionCredential())))
     }
 
-    public func acquireSessionIfNeeded() async throws -> SessionAcquiringResult {
-        .sessionAlreadyPresent(credential: nil)
+    public func acquireSessionIfNeeded() async throws -> Result<SessionAcquiringResult, Error> {
+        .success(.sessionAlreadyPresent(AcquiredSessionCredential()))
     }
 
     public func request(

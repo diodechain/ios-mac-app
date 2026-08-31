@@ -58,11 +58,17 @@ public struct IPView: View {
                         Button {
                             store.send(.changeIPVisibility)
                         } label: {
-                            (store.localIpHidden
-                                ? IconProvider.eye
-                                : IconProvider.eyeSlash)
-                                .resizable().frame(width: buttonSize, height: buttonSize)
-                                .foregroundColor(Color(.text, .weak))
+                            Group {
+                                if store.localIpHidden {
+                                    IconProvider.eye.swiftUIImage
+                                        .resizable().frame(width: buttonSize, height: buttonSize)
+                                        .foregroundColor(Color(.text, .weak))
+                                } else {
+                                    IconProvider.eyeSlash.swiftUIImage
+                                        .resizable().frame(width: buttonSize, height: buttonSize)
+                                        .foregroundColor(Color(.text, .weak))
+                                }
+                            }
                         }
                     }
                 }
@@ -79,7 +85,7 @@ public struct IPView: View {
             }
             .frame(maxWidth: .infinity) // Makes both sides equal width
 
-            IconProvider.arrowRight
+            IconProvider.arrowRight.swiftUIImage
                 .accessibilityHidden(true)
                 .foregroundColor(Color(.text, .weak))
 

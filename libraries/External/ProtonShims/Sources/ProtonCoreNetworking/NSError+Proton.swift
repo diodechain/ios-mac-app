@@ -1,6 +1,10 @@
 import Foundation
 
 public extension NSError {
+    convenience init(domain: String, code: Int, localizedDescription: String) {
+        self.init(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: localizedDescription])
+    }
+
     var httpCode: Int {
         (userInfo["HttpCode"] as? Int) ?? (userInfo[NSLocalizedDescriptionKey] as? Int) ?? code
     }
@@ -11,6 +15,10 @@ public extension NSError {
 }
 
 public extension Error {
+    var code: Int {
+        (self as NSError).code
+    }
+
     var responseCode: Int {
         if let responseError = self as? ResponseError {
             switch responseError {

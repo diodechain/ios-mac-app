@@ -51,7 +51,7 @@ struct StackNavigationView<RootContent>: View where RootContent: View {
                             currentSubview = nil
                         }
                     }, label: {
-                        IconProvider.chevronLeft
+                        IconProvider.chevronLeft.swiftUIImage
                             .resizable()
                             .foregroundColor(Color(.text))
                             .frame(.square(.themeSpacing16))

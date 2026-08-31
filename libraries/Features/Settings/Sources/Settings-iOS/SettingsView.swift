@@ -70,24 +70,24 @@ public struct SettingsView: View {
         netShield: ChildFeature(icon: Theme.Asset.icNetshield.swiftUIImage, title: Localizable.settingsTitleNetshield, accessory: .disclosure),
         killSwitch: ChildFeature(icon: Theme.Asset.icKillswitch.swiftUIImage, title: Localizable.settingsTitleKillSwitch, accessory: .disclosure),
 
-        vpnProtocol: ChildFeature(icon: IconProvider.servers, title: Localizable.settingsTitleProtocol, accessory: .disclosure),
-        vpnAccelerator: ChildFeature(icon: IconProvider.rocket, title: Localizable.settingsTitleVpnAccelerator, accessory: .disclosure),
-        advanced: ChildFeature(icon: IconProvider.sliders, title: Localizable.settingsTitleAdvanced, accessory: .disclosure),
+        vpnProtocol: ChildFeature(icon: IconProvider.servers.swiftUIImage, title: Localizable.settingsTitleProtocol, accessory: .disclosure),
+        vpnAccelerator: ChildFeature(icon: IconProvider.rocket.swiftUIImage, title: Localizable.settingsTitleVpnAccelerator, accessory: .disclosure),
+        advanced: ChildFeature(icon: IconProvider.sliders.swiftUIImage, title: Localizable.settingsTitleAdvanced, accessory: .disclosure),
 
-        theme: ChildFeature(icon: IconProvider.circleHalfFilled, title: Localizable.settingsTitleTheme, accessory: .disclosure),
-        betaAccess: ChildFeature(icon: IconProvider.keySkeleton, title: Localizable.settingsTitleBetaAccess, accessory: .disclosure),
-        widget: ChildFeature(icon: IconProvider.grid2, title: Localizable.settingsTitleWidget, accessory: .disclosure),
+        theme: ChildFeature(icon: IconProvider.circleHalfFilled.swiftUIImage, title: Localizable.settingsTitleTheme, accessory: .disclosure),
+        betaAccess: ChildFeature(icon: IconProvider.keySkeleton.swiftUIImage, title: Localizable.settingsTitleBetaAccess, accessory: .disclosure),
+        widget: ChildFeature(icon: IconProvider.grid2.swiftUIImage, title: Localizable.settingsTitleWidget, accessory: .disclosure),
 
-        supportCenter: ChildFeature(icon: IconProvider.lifeRing, title: Localizable.settingsTitleSupportCenter, accessory: .externalLink),
-        reportAnIssue: ChildFeature(icon: IconProvider.bug, title: Localizable.settingsTitleReportIssue, accessory: .disclosure),
-        debugLogs: ChildFeature(icon: IconProvider.code, title: Localizable.settingsTitleDebugLogs, accessory: .disclosure),
+        supportCenter: ChildFeature(icon: IconProvider.lifeRing.swiftUIImage, title: Localizable.settingsTitleSupportCenter, accessory: .externalLink),
+        reportAnIssue: ChildFeature(icon: IconProvider.bug.swiftUIImage, title: Localizable.settingsTitleReportIssue, accessory: .disclosure),
+        debugLogs: ChildFeature(icon: IconProvider.code.swiftUIImage, title: Localizable.settingsTitleDebugLogs, accessory: .disclosure),
 
-        censorship: ChildFeature(icon: IconProvider.users, title: Localizable.settingsTitleCensorship, accessory: .externalLink),
-        rateProtonVPN: ChildFeature(icon: IconProvider.star, title: Localizable.settingsTitleRate, accessory: .disclosure),
+        censorship: ChildFeature(icon: IconProvider.users.swiftUIImage, title: Localizable.settingsTitleCensorship, accessory: .externalLink),
+        rateProtonVPN: ChildFeature(icon: IconProvider.star.swiftUIImage, title: Localizable.settingsTitleRate, accessory: .disclosure),
 
-        restoreDefault: ChildFeature(icon: IconProvider.arrowRotateRight, title: Localizable.settingsTitleRestoreDefaultSettings, accessory: .none),
+        restoreDefault: ChildFeature(icon: IconProvider.arrowRotateRight.swiftUIImage, title: Localizable.settingsTitleRestoreDefaultSettings, accessory: .none),
 
-        signOut: ChildFeature(icon: IconProvider.arrowInToRectangle, title: Localizable.settingsTitleSignOut, accessory: .none)
+        signOut: ChildFeature(icon: IconProvider.arrowInToRectangle.swiftUIImage, title: Localizable.settingsTitleSignOut, accessory: .none)
     )
 
     public var body: some View {

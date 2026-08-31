@@ -55,12 +55,14 @@ xcodebuild -workspace ProtonVPN.xcworkspace \
 
 Ensure generated `ObfuscatedConstants.swift` (from `.example`) includes:
 
-- `diodeConsoleApiKey`
-- `diodeConsoleFleetUuid`
+- `diodeConsoleApiKey` — inject via `./scripts/inject-diode-console-secrets.sh` (see [DIODE_CONSOLE_SECRETS.md](./DIODE_CONSOLE_SECRETS.md))
+- `diodeConsoleFleetUuid` — optional; defaults to public fleet UUID in `NetworkConfig`
 - `diodeVpnYearlyProductId` (default `"diode_vpn_yearly"` in `.example`)
 
 ## Known limitations
 
 - **ProTUN / Plutonium / OpenVPN** targets may still build as app dependencies even when disabled in the scheme Build list; Diode connect path uses WireGuard only (§9.18).
 - **Release-Diode** / TestFlight archives: duplicate **Release** → **Release-Diode** with `DIODE_BACKEND` in app + WireGuard xcconfig variants (not yet added).
-- Full build requires `external/protoncore` submodule, secrets generation script, and code signing.
+- Physical VPN connect needs code signing for the app and Network Extension.
+- `DiodeVPN-macOS` **Debug-Diode** builds with ProtonShims + local `protunFFI` + Go ≥ 1.21.
+- CI workflow: `.github/workflows/diode-macos-build.yml` (requires Actions secret `DIODE_CONSOLE_API_KEY`).

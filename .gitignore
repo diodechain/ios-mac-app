@@ -40,6 +40,10 @@ output/
 **/ObfuscatedConstants.swift
 *.strings.env
 
+# Diode Console local secrets (Android-parity inject sources)
+local.properties
+.diode-secrets
+
 # Configuration
 .gitconfig
 .vscode/

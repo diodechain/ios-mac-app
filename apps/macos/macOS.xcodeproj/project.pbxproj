@@ -115,6 +115,8 @@
 		77DA78742CB7F83800E12F5C /* Localization in Frameworks */ = {isa = PBXBuildFile; productRef = 77DA78732CB7F83800E12F5C /* Localization */; };
 		A405F2602F61A26D00953E7B /* Payments in Frameworks */ = {isa = PBXBuildFile; productRef = A405F25F2F61A26D00953E7B /* Payments */; };
 		A4D10E012F6A000100A26EA8 /* DiodeConnection in Frameworks */ = {isa = PBXBuildFile; productRef = A4D10E022F6A000100A26EA8 /* DiodeConnection */; };
+		A4D10E032F6A000200A26EA8 /* ProtonCoreLog in Frameworks */ = {isa = PBXBuildFile; productRef = A4D10E042F6A000200A26EA8 /* ProtonCoreLog */; };
+		A4D10E052F6A000300A26EA8 /* ProtonCoreObservability in Frameworks */ = {isa = PBXBuildFile; productRef = A4D10E062F6A000300A26EA8 /* ProtonCoreObservability */; };
 		A443C5732E3B76BC003D91FA /* NATPMPUI in Frameworks */ = {isa = PBXBuildFile; productRef = A443C5722E3B76BC003D91FA /* NATPMPUI */; };
 		A443C5752E3B76D2003D91FA /* QuickSettingDetailPFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443C5742E3B76C6003D91FA /* QuickSettingDetailPFViewController.swift */; };
 		A44463CC2ECF178E0008288D /* ProtonVPN_ike_root.der in Resources */ = {isa = PBXBuildFile; fileRef = A44463CB2ECF178E0008288D /* ProtonVPN_ike_root.der */; };
@@ -1153,6 +1155,8 @@
 				E5E48CF72A4C363700B09111 /* ComposableArchitecture in Frameworks */,
 				E5D1A5A22F43292100A26EA8 /* Countries in Frameworks */,
 				A4D10E012F6A000100A26EA8 /* DiodeConnection in Frameworks */,
+				A4D10E032F6A000200A26EA8 /* ProtonCoreLog in Frameworks */,
+				A4D10E052F6A000300A26EA8 /* ProtonCoreObservability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2879,6 +2883,8 @@
 				E5D1A5A12F43292100A26EA8 /* Countries */,
 				A405F25F2F61A26D00953E7B /* Payments */,
 				A4D10E022F6A000100A26EA8 /* DiodeConnection */,
+				A4D10E042F6A000200A26EA8 /* ProtonCoreLog */,
+				A4D10E062F6A000300A26EA8 /* ProtonCoreObservability */,
 			);
 			productName = ProtonVPN;
 			productReference = EED534811EEC112000013607 /* ProtonVPN.app */;
@@ -5862,6 +5868,14 @@
 		A4D10E022F6A000100A26EA8 /* DiodeConnection */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DiodeConnection;
+		};
+		A4D10E042F6A000200A26EA8 /* ProtonCoreLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProtonCoreLog;
+		};
+		A4D10E062F6A000300A26EA8 /* ProtonCoreObservability */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ProtonCoreObservability;
 		};
 		A443C5722E3B76BC003D91FA /* NATPMPUI */ = {
 			isa = XCSwiftPackageProductDependency;

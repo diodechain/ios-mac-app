@@ -43,7 +43,25 @@ public struct ComposedPlan: Sendable {
 }
 
 public struct CurrentSubscriptionResponse: Sendable {
-    public init() {}
+    public var id: String
+    public var name: String
+    public var title: String
+    public var description: String
+    public var cycle: Int
+
+    public init(
+        id: String = "",
+        name: String = "",
+        title: String = "",
+        description: String = "",
+        cycle: Int = 12
+    ) {
+        self.id = id
+        self.name = name
+        self.title = title
+        self.description = description
+        self.cycle = cycle
+    }
 }
 
 public enum ProtonPlansManagerError: Error {

@@ -40,7 +40,7 @@ struct FreeConnectionInfoModal: View {
                 Button {
                     store.send(.dismissButtonTapped)
                 } label: {
-                    IconProvider.cross
+                    IconProvider.cross.swiftUIImage
                         .foregroundColor(Color(.icon))
                 }
             }
@@ -56,7 +56,7 @@ struct FreeConnectionInfoModal: View {
             WrappingHStack(horizontalSpacing: .themeSpacing16, verticalSpacing: .themeSpacing16) {
                 ForEach(store.countryCodes, id: \.self) { countryCode in
                     HStack(spacing: .themeSpacing8) {
-                        IconProvider.flag(forCountryCode: countryCode)?
+                        IconProvider.flag(forCountryCode: countryCode).swiftUIImage?
                             .resizable()
                             .scaledToFill()
                             .frame(width: 24, height: 16)

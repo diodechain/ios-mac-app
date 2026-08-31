@@ -17,7 +17,8 @@
 //  along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
 
 import Foundation
+import ProtonCoreNetworking
 
-public struct AnnouncementResponse: Codable {
+public struct AnnouncementResponse: Codable, APIDecodableResponse {
     let notifications: [Announcement]
 }

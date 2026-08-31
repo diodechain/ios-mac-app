@@ -28,7 +28,7 @@ public enum DiodeTunnelController {
         #endif
 
         manager.protocolConfiguration = protocolConfiguration
-        manager.localizedDescription = "Proton VPN"
+        manager.localizedDescription = "Diode VPN"
         manager.isEnabled = true
         manager.isOnDemandEnabled = false
 

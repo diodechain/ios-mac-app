@@ -32,10 +32,15 @@ Live tracker for parallel subagent work. Update after each workstream lands.
 | CommonNetworking (`swift build`) | ✅ | ProtonShims stubs: DoH, APIDecodableResponse, NSError, UserSettings, Authenticator |
 | LegacyCommon (`swift build`) | ✅ | GoLibs LocalAgent/Crypto stubs; `ProtonCoreEnvironment.fidoPortal`; `PushNotificationServiceFactory` |
 | ios_app (`Package.swift` graph) | ✅ | `DiodeConnection` product reference; SPM compile on macOS host blocked by iOS-only platform resolution |
-| DiodeConnection tests | ✅ **24/24** | Preflight + handshake + ticket submitter |
+| DiodeConnection tests | ✅ **26/26** | Preflight + handshake + ticket + reconnect ordering |
 | Xcode `DiodeVPN-iOS` / `DiodeVPN-macOS` schemes | ✅ wired | `Debug-Diode` + xcconfig; see `docs/DIODE_XCODE_SCHEMES.md` |
-| Full Xcode workspace build | ⬜ | Needs `wireguard-apple` submodule + workspace SPM graph |
-| Device connect (ticket → RPC → TUN) | ⬜ | Schemes ready; physical QA + secrets |
+| Full Xcode workspace build | ✅ **DiodeVPN-macOS Debug-Diode** | Go 1.25 + local `protunFFI`; ProtonShims; branding |
+| Device connect (ticket → RPC → TUN) | ⬜ | Needs non-empty console key/fleet UUID + signing for VPN |
+| Geo enrich on refresh | ✅ | `DiodeServerListRepository` + CLGeocoder country fill |
+| TLS IP-literal WSS | ✅ | `DiodeTlsPolicy` on RPC `URLSession` challenge |
+| Session reconnect | ✅ | Same-country order; tunnel stop in `tearDown` |
+| Diode branding | ✅ | ColorProvider orange/indigo; AppIcon; display name “Diode VPN” |
+| Secrets gate | ✅ inject + CI | `scripts/inject-diode-console-secrets.sh`; GitHub secret `DIODE_CONSOLE_API_KEY` |
 
 ---
 
@@ -98,12 +103,12 @@ cd libraries/Shared/Persistence && swift test --filter DiodeVpnNodeRepositoryTes
 
 ## Recommended next steps
 
-1. **Clone `external/wireguard-apple`** — unblock `ProtonVPN.xcworkspace` resolution
-2. **Generate `ObfuscatedConstants.swift`** from `.example` (console key, fleet UUID, StoreKit product ID)
-3. **Workspace build** — `xcodebuild -workspace ProtonVPN.xcworkspace -scheme DiodeVPN-iOS -configuration Debug-Diode build`
-4. **§10.6** — physical device QA checklist
-5. **Release-Diode** configuration for TestFlight archives
+1. Fill `diodeConsoleApiKey` and `diodeConsoleFleetUuid` in `ObfuscatedConstants.swift` (from `.example`)
+2. Sign the macOS app and Network Extension for a real VPN connect path
+3. Physical QA: launch → server list warm-up → connect → disconnect
+4. `DiodeVPN-iOS` simulator/device build when CoreSimulator is current
+5. **Release-Diode** / TestFlight after device connect works
 
 ---
 
-*Last updated: 2026-06-25 — W5/W6, Xcode schemes, ticket refresh*
+*Last updated: 2026-08-31 — Debug-Diode macOS build green; branding; geo/TLS/reconnect*

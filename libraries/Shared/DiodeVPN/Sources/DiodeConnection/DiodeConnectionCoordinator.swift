@@ -56,18 +56,23 @@ public extension DependencyValues {
 
 // MARK: - Live implementation
 
-private enum DiodeConnectionLive {
+enum DiodeConnectionLive {
     private static let deviceKeys = DeviceKeyStore()
     private static let networkApi = DiodeNetworkApi()
 
-    static func connect(spec: ConnectionSpec) async throws {
+    static func connect(spec: ConnectionSpec, preferredNode: VpnNode? = nil) async throws {
         guard DiodeVpnEntitlement.hasEntitlement() else {
             await publishStatus(.disconnected, spec: spec, node: nil)
             throw DiodeConnectionError.notEntitled
         }
 
         let nodes = try await DiodeServerListRepository.shared.cachedOrFetchNodes()
-        let node = try DiodeNodeSelector.selectNode(from: spec, nodes: nodes)
+        let node: VpnNode
+        if let preferredNode {
+            node = preferredNode
+        } else {
+            node = try DiodeNodeSelector.selectNode(from: spec, nodes: nodes)
+        }
 
         await publishStatus(.connecting, spec: spec, node: node)
 
@@ -90,7 +95,7 @@ private enum DiodeConnectionLive {
 
         let rpc = await DiodeActiveSession.shared.makeRpcClient(wsURL: node.websocketURL())
         try await rpc.connectAwait()
-        await DiodeActiveSession.shared.setClient(rpc, node: node)
+        await DiodeActiveSession.shared.setClient(rpc, node: node, spec: spec)
 
         do {
             let ticketSubmit = try await DiodeTicketSubmitter.submitWithRetries(
@@ -130,6 +135,7 @@ private enum DiodeConnectionLive {
 
             await publishStatus(.connected, spec: spec, node: node)
         } catch {
+            await DiodeServerListRepository.shared.recordConnectFailure(nodeIdHex: node.nodeIdHex)
             await DiodeActiveSession.shared.tearDown()
             await publishStatus(.disconnected, spec: spec, node: node)
             if let rpcError = error as? DiodeRpcClient.RpcException {
@@ -144,11 +150,10 @@ private enum DiodeConnectionLive {
 
     static func disconnect() async throws {
         let activeNode = await DiodeActiveSession.shared.currentNode()
-        let spec = ConnectionSpec.defaultFastest
+        let spec = await DiodeActiveSession.shared.currentSpec() ?? ConnectionSpec.defaultFastest
 
         await publishStatus(.disconnecting, spec: spec, node: activeNode)
         await DiodeActiveSession.shared.tearDown()
-        try await DiodeTunnelController.stopTunnel()
         await publishStatus(.disconnected, spec: spec, node: activeNode)
     }
 
@@ -171,5 +176,11 @@ private enum DiodeConnectionLive {
         await MainActor.run {
             pushStatus(status)
         }
+    }
+}
+
+enum DiodeConnectionLiveInternal {
+    static func connect(spec: ConnectionSpec, preferredNode: VpnNode) async throws {
+        try await DiodeConnectionLive.connect(spec: spec, preferredNode: preferredNode)
     }
 }

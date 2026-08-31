@@ -23,6 +23,7 @@ import Foundation
 import LegacyCommon
 import PMLogger
 import ProtonCoreAPIClient
+import ProtonCoreServices
 import VPNAppCore
 import VPNShared
 

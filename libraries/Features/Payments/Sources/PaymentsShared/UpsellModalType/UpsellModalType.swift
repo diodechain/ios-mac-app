@@ -198,60 +198,60 @@ public extension UpsellModalType {
     func artImage() -> some View {
         switch self {
         case .subscription:
-            Image(.welcomePlus)
+            Image(ImageResource.welcomePlus)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .safeMode:
-            Image(.safeMode)
+            Image(ImageResource.safeMode)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .netShield:
-            Image(.netshield)
+            Image(ImageResource.netshield)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .secureCore:
-            Image(.secureCore)
+            Image(ImageResource.secureCore)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .moderateNAT:
-            Image(.moderateNAT)
+            Image(ImageResource.moderateNAT)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .allCountries:
-            Image(.plusCountries)
+            Image(ImageResource.plusCountries)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .profiles:
-            Image(.profiles)
+            Image(ImageResource.profiles)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .vpnAccelerator:
-            Image(.speed)
+            Image(ImageResource.speed)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .customization:
-            Image(.customisation)
+            Image(ImageResource.customisation)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .streaming:
-            Image(.streaming)
+            Image(ImageResource.streaming)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .p2pSupport:
-            Image(.p2P)
+            Image(ImageResource.p2P)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .devices:
-            Image(.devices)
+            Image(ImageResource.devices)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .torOverVPN:
-            Image(.tor)
+            Image(ImageResource.tor)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case let .country(countryCode, _, _):
             ZStack {
-                Image(.flatIllustration)
+                Image(ImageResource.flatIllustration)
                 if let flag = ImageAsset.Image.flag(countryCode: countryCode) {
                     flag.swiftUIImage
                         .resizable(resizingMode: .stretch)
@@ -264,15 +264,15 @@ public extension UpsellModalType {
                 totalDuration: totalDuration
             )
         case .hermes:
-            Image(.hermes)
+            Image(ImageResource.hermes)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .portForwarding:
-            Image(.portForwarding)
+            Image(ImageResource.portForwarding)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         case .plutonium:
-            Image(.plutonium)
+            Image(ImageResource.plutonium)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
         }

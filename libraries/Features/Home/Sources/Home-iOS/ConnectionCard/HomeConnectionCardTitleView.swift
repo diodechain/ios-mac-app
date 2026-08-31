@@ -42,7 +42,7 @@ struct HomeConnectionCardHeader: View {
 //            Text(Localizable.actionHelp)
 //                .themeFont(.caption(emphasised: true))
 //                .styled(.weak)
-//            IconProvider.questionCircle
+//            IconProvider.questionCircle.swiftUIImage
 //                .resizable()
 //                .styled(.weak)
 //                .frame(.square(16)) // TODO: [redesign, phase 2]
@@ -67,7 +67,7 @@ struct HomeConnectionCardHeader: View {
             Text(titleString)
                 .themeFont(.body3(emphasised: false))
             if shouldShowDropdownChevron {
-                IconProvider.chevronDownFilled
+                IconProvider.chevronDownFilled.swiftUIImage
             }
         }
         .foregroundColor(Color(.text))

@@ -164,7 +164,7 @@ struct ConnectionDetailsView: View {
                     .themeFont(.body1())
 
                 if case .info = accessory {
-                    IconProvider.infoCircle.resizable().frame(width: infoIconSize, height: infoIconSize)
+                    IconProvider.infoCircle.swiftUIImage.resizable().frame(width: infoIconSize, height: infoIconSize)
                 }
             }
             .accessibilityLabel(title)

@@ -7,7 +7,7 @@ public enum NetworkConfig {
     public static let geoBaseURL = "https://monitor.testnet.diode.io"
     /// [Diode Console](https://console.diode.io/docs/api) JSON-RPC endpoint (HTTPS).
     public static let diodeConsoleRpcURL = "https://console.diode.io/api/v1/rpc"
-    public static let diodeConsoleAPIKey = "dck_4c4511c6bf7943a17a0a720cc90c22bc24968f9c214e9e48"
+    /// Console `fleet.member.add` target fleet UUID (public identifier, not a secret).
     public static let diodeConsoleFleetUUID = "75894474-0117-4f83-89d1-ee8f260c490b"
     public static let defaultWireguardPort = 51_820
 

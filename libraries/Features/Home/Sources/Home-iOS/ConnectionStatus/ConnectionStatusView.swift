@@ -87,7 +87,7 @@ public struct ConnectionStatusView: View {
                 .controlSize(.regular)
                 .tint(.white)
         case .unprotected:
-            IconProvider.lockOpenFilled2
+            IconProvider.lockOpenFilled2.swiftUIImage
                 .styled(.danger)
                 .accessibilityHidden(true)
         }
@@ -103,11 +103,11 @@ public struct ConnectionStatusView: View {
         HStack(alignment: .bottom) {
             switch protectionState {
             case .protected:
-                IconProvider.lockFilled
+                IconProvider.lockFilled.swiftUIImage
                     .foregroundColor(Asset.vpnGreen.swiftUIColor)
                 protectedText
             case .protectedSecureCore:
-                IconProvider.locksFilled
+                IconProvider.locksFilled.swiftUIImage
                     .foregroundColor(Asset.vpnGreen.swiftUIColor)
                 protectedText
             case .protecting, .resolving:
@@ -115,7 +115,7 @@ public struct ConnectionStatusView: View {
                     .controlSize(.regular)
                     .tint(.white)
             case .unprotected:
-                IconProvider.lockOpenFilled2
+                IconProvider.lockOpenFilled2.swiftUIImage
                     .styled(.danger)
             }
         }

@@ -10,12 +10,14 @@ public struct ProtonIconSet: Sendable {
     public let alias: ProtonIcon
     public let arrowsLeftRight: ProtonIcon
     public let arrowInToRectangle: ProtonIcon
+    public let arrowDown: ProtonIcon
     public let arrowLeft: ProtonIcon
     public let arrowOutFromRectangle: ProtonIcon
     public let arrowOutSquare: ProtonIcon
     public let arrowRight: ProtonIcon
     public let arrowRightArrowLeft: ProtonIcon
     public let arrowRotateRight: ProtonIcon
+    public let arrowUp: ProtonIcon
     public let arrowsSwapRight: ProtonIcon
     public let arrowsSwitch: ProtonIcon
     public let bell: ProtonIcon
@@ -39,9 +41,12 @@ public struct ProtonIconSet: Sendable {
     public let cross: ProtonIcon
     public let crossBig: ProtonIcon
     public let crossCircleFilled: ProtonIcon
+    public let crossSmall: ProtonIcon
     public let driveMainTransparent: ProtonIcon
     public let earth: ProtonIcon
     public let emptyCircle: ProtonIcon
+    public let exclamationCircleFilled: ProtonIcon
+    public let exclamationTriangleFilled: ProtonIcon
     public let eye: ProtonIcon
     public let eyeSlash: ProtonIcon
     public let fileEmpty: ProtonIcon
@@ -74,6 +79,7 @@ public struct ProtonIconSet: Sendable {
     public let play: ProtonIcon
     public let plusCircle: ProtonIcon
     public let powerOff: ProtonIcon
+    public let plus: ProtonIcon
     public let printer: ProtonIcon
     public let questionCircle: ProtonIcon
     public let rocket: ProtonIcon
@@ -86,6 +92,8 @@ public struct ProtonIconSet: Sendable {
     public let speechBubble: ProtonIcon
     public let squares: ProtonIcon
     public let star: ProtonIcon
+    public let switchOff: ProtonIcon
+    public let switchOn: ProtonIcon
     public let threeDotsHorizontal: ProtonIcon
     public let threeDotsVertical: ProtonIcon
     public let trashCross: ProtonIcon
@@ -93,99 +101,131 @@ public struct ProtonIconSet: Sendable {
     public let user: ProtonIcon
     public let userCircle: ProtonIcon
     public let users: ProtonIcon
+    public let vpnMainTransparent: ProtonIcon
     public let windowTerminal: ProtonIcon
     public let wrench: ProtonIcon
+    public let minus: ProtonIcon
+    public let arrowUpBounceLeft: ProtonIcon
 
     public init() {
-        let placeholder = ProtonIcon.placeholder()
-        alias = placeholder
-        arrowsLeftRight = placeholder
-        arrowInToRectangle = placeholder
-        arrowLeft = placeholder
-        arrowOutFromRectangle = placeholder
-        arrowOutSquare = placeholder
-        arrowRight = placeholder
-        arrowRightArrowLeft = placeholder
-        arrowRotateRight = placeholder
-        arrowsSwapRight = placeholder
-        arrowsSwitch = placeholder
-        bell = placeholder
-        bolt = placeholder
-        brandTor = placeholder
-        bug = placeholder
-        calendarMainTransparent = placeholder
-        chartLine = placeholder
-        checkmark = placeholder
-        checkmarkCircleFilled = placeholder
-        chevronDownFilled = placeholder
-        chevronLeft = placeholder
-        chevronRight = placeholder
-        chevronRightFilled = placeholder
-        chevronsRight = placeholder
-        circleHalfFilled = placeholder
-        circleSlash = placeholder
-        clockRotateLeft = placeholder
-        code = placeholder
-        cogWheel = placeholder
-        cross = placeholder
-        crossBig = placeholder
-        crossCircleFilled = placeholder
-        driveMainTransparent = placeholder
-        earth = placeholder
-        emptyCircle = placeholder
-        eye = placeholder
-        eyeSlash = placeholder
-        fileEmpty = placeholder
-        gift = placeholder
-        globe = placeholder
-        grid2 = placeholder
-        hourglass = placeholder
-        house = placeholder
-        houseFilled = placeholder
-        infoCircle = placeholder
-        infoCircleFilled = placeholder
-        keySkeleton = placeholder
-        lifeRing = placeholder
-        lock = placeholder
-        lockFilled = placeholder
-        lockLayers = placeholder
-        lockOpen = placeholder
-        lockOpenFilled = placeholder
-        lockOpenFilled2 = placeholder
-        locks = placeholder
-        locksFilled = placeholder
-        magicWand = placeholder
-        magnifier = placeholder
-        mailMainTransparent = placeholder
-        mapPin = placeholder
-        minusCircle = placeholder
-        passMainTransparent = placeholder
-        pinFilled = placeholder
-        pinSlashFilled = placeholder
-        play = placeholder
-        plusCircle = placeholder
-        powerOff = placeholder
-        printer = placeholder
-        questionCircle = placeholder
-        rocket = placeholder
-        servers = placeholder
-        shield = placeholder
-        shieldFilled = placeholder
-        shieldHalfFilled = placeholder
-        sidePanelLeft = placeholder
-        sliders = placeholder
-        speechBubble = placeholder
-        squares = placeholder
-        star = placeholder
-        threeDotsHorizontal = placeholder
-        threeDotsVertical = placeholder
-        trashCross = placeholder
-        trashCrossFilled = placeholder
-        user = placeholder
-        userCircle = placeholder
-        users = placeholder
-        windowTerminal = placeholder
-        wrench = placeholder
+        alias = Self.symbol("a.circle.fill")
+        arrowsLeftRight = Self.symbol("arrow.left.arrow.right")
+        arrowInToRectangle = Self.symbol("rectangle.portrait.and.arrow.right")
+        arrowDown = Self.symbol("arrow.down")
+        arrowLeft = Self.symbol("chevron.left")
+        arrowOutFromRectangle = Self.symbol("rectangle.portrait.and.arrow.right")
+        arrowOutSquare = Self.symbol("arrow.up.forward.square")
+        arrowRight = Self.symbol("chevron.right")
+        arrowRightArrowLeft = Self.symbol("arrow.right.arrow.left")
+        arrowRotateRight = Self.symbol("arrow.clockwise")
+        arrowUp = Self.symbol("arrow.up")
+        arrowsSwapRight = Self.symbol("arrow.triangle.swap")
+        arrowsSwitch = Self.symbol("arrow.triangle.2.circlepath")
+        bell = Self.symbol("bell.fill")
+        bolt = Self.symbol("bolt.fill")
+        brandTor = Self.symbol("network")
+        bug = Self.symbol("ant.fill")
+        calendarMainTransparent = Self.symbol("calendar")
+        chartLine = Self.symbol("chart.line.uptrend.xyaxis")
+        checkmark = Self.symbol("checkmark")
+        checkmarkCircleFilled = Self.symbol("checkmark.circle.fill")
+        chevronDownFilled = Self.symbol("chevron.down")
+        chevronLeft = Self.symbol("chevron.left")
+        chevronRight = Self.symbol("chevron.right")
+        chevronRightFilled = Self.symbol("chevron.right")
+        chevronsRight = Self.symbol("chevron.right.2")
+        circleHalfFilled = Self.symbol("circle.lefthalf.filled")
+        circleSlash = Self.symbol("circle.slash")
+        clockRotateLeft = Self.symbol("clock.arrow.circlepath")
+        code = Self.symbol("chevron.left.forwardslash.chevron.right")
+        cogWheel = Self.symbol("gearshape.fill")
+        cross = Self.symbol("xmark")
+        crossBig = Self.symbol("xmark")
+        crossCircleFilled = Self.symbol("xmark.circle.fill")
+        crossSmall = Self.symbol("xmark")
+        driveMainTransparent = Self.symbol("externaldrive.fill")
+        earth = Self.symbol("globe.americas.fill")
+        emptyCircle = Self.symbol("circle")
+        exclamationCircleFilled = Self.symbol("exclamationmark.circle.fill")
+        exclamationTriangleFilled = Self.symbol("exclamationmark.triangle.fill")
+        eye = Self.symbol("eye.fill")
+        eyeSlash = Self.symbol("eye.slash.fill")
+        fileEmpty = Self.symbol("doc")
+        gift = Self.symbol("gift.fill")
+        globe = Self.symbol("globe")
+        grid2 = Self.symbol("square.grid.2x2.fill")
+        hourglass = Self.symbol("hourglass")
+        house = Self.symbol("house")
+        houseFilled = Self.symbol("house.fill")
+        infoCircle = Self.symbol("info.circle")
+        infoCircleFilled = Self.symbol("info.circle.fill")
+        keySkeleton = Self.symbol("key.fill")
+        lifeRing = Self.symbol("lifepreserver")
+        lock = Self.symbol("lock")
+        lockFilled = Self.symbol("lock.fill")
+        lockLayers = Self.symbol("lock.square.stack.fill")
+        lockOpen = Self.symbol("lock.open")
+        lockOpenFilled = Self.symbol("lock.open.fill")
+        lockOpenFilled2 = Self.symbol("lock.open.fill")
+        locks = Self.symbol("lock.square.stack")
+        locksFilled = Self.symbol("lock.square.stack.fill")
+        magicWand = Self.symbol("wand.and.stars")
+        magnifier = Self.symbol("magnifyingglass")
+        mailMainTransparent = Self.symbol("envelope")
+        mapPin = Self.symbol("mappin")
+        minusCircle = Self.symbol("minus.circle")
+        passMainTransparent = Self.symbol("key.horizontal")
+        pinFilled = Self.symbol("pin.fill")
+        pinSlashFilled = Self.symbol("pin.slash.fill")
+        play = Self.symbol("play.fill")
+        plusCircle = Self.symbol("plus.circle")
+        powerOff = Self.symbol("power")
+        plus = Self.symbol("plus")
+        printer = Self.symbol("printer")
+        questionCircle = Self.symbol("questionmark.circle")
+        rocket = Self.symbol("airplane")
+        servers = Self.symbol("server.rack")
+        shield = Self.symbol("shield")
+        shieldFilled = Self.symbol("shield.fill")
+        shieldHalfFilled = Self.symbol("shield.lefthalf.filled")
+        sidePanelLeft = Self.symbol("sidebar.left")
+        sliders = Self.symbol("slider.horizontal.3")
+        speechBubble = Self.symbol("bubble.left")
+        squares = Self.symbol("square.on.square")
+        star = Self.symbol("star.fill")
+        switchOff = Self.symbol("togglepower")
+        switchOn = Self.symbol("switch.2")
+        threeDotsHorizontal = Self.symbol("ellipsis")
+        threeDotsVertical = Self.symbol("ellipsis.vertical")
+        trashCross = Self.symbol("trash")
+        trashCrossFilled = Self.symbol("trash.fill")
+        user = Self.symbol("person")
+        userCircle = Self.symbol("person.circle")
+        users = Self.symbol("person.2")
+        vpnMainTransparent = Self.symbol("shield.lefthalf.filled")
+        windowTerminal = Self.symbol("terminal")
+        wrench = Self.symbol("wrench.adjustable")
+        minus = Self.symbol("minus")
+        arrowUpBounceLeft = Self.symbol("arrow.uturn.backward")
+    }
+
+    private static func symbol(_ name: String) -> ProtonIcon {
+        #if canImport(UIKit)
+        if let image = UIImage(systemName: name) {
+            return image.withTintColor(
+                UIColor(red: 241 / 255, green: 93 / 255, blue: 47 / 255, alpha: 1),
+                renderingMode: .alwaysOriginal
+            )
+        }
+        #elseif canImport(AppKit)
+        if let image = NSImage(systemSymbolName: name, accessibilityDescription: nil) {
+            let config = NSImage.SymbolConfiguration(paletteColors: [
+                NSColor(red: 241 / 255, green: 93 / 255, blue: 47 / 255, alpha: 1),
+            ])
+            return image.withSymbolConfiguration(config) ?? image
+        }
+        #endif
+        return ProtonIcon.placeholder()
     }
 }
 
@@ -204,13 +244,24 @@ public struct IconProviderPalette: Sendable {
 
 public let IconProvider = IconProviderPalette()
 
+public extension Image {
+    init(_ icon: ProtonIcon) {
+        #if canImport(UIKit)
+        self.init(uiImage: icon)
+        #elseif canImport(AppKit)
+        self.init(nsImage: icon)
+        #endif
+    }
+}
+
 #if canImport(UIKit)
     extension UIImage {
         static func placeholder() -> UIImage {
             let size = CGSize(width: 24, height: 24)
             let renderer = UIGraphicsImageRenderer(size: size)
             return renderer.image { context in
-                UIColor(red: 107 / 255, green: 78 / 255, blue: 255 / 255, alpha: 1).setFill()
+                // Diode orange placeholder until named assets replace glyphs.
+                UIColor(red: 241 / 255, green: 93 / 255, blue: 47 / 255, alpha: 1).setFill()
                 context.fill(CGRect(origin: .zero, size: size))
             }
         }
@@ -230,7 +281,8 @@ public let IconProvider = IconProviderPalette()
         static func placeholder() -> NSImage {
             let image = NSImage(size: NSSize(width: 24, height: 24))
             image.lockFocus()
-            NSColor(red: 107 / 255, green: 78 / 255, blue: 255 / 255, alpha: 1).setFill()
+            // Diode orange placeholder until named assets replace glyphs.
+            NSColor(red: 241 / 255, green: 93 / 255, blue: 47 / 255, alpha: 1).setFill()
             NSRect(x: 0, y: 0, width: 24, height: 24).fill()
             image.unlockFocus()
             return image

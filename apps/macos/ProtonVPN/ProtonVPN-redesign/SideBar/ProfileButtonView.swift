@@ -24,7 +24,7 @@
 
     struct ProfileButtonView: View {
         var body: some View {
-            IconProvider.userCircle
+            IconProvider.userCircle.swiftUIImage
                 .resizable()
                 .frame(.square(.themeSpacing16))
                 .tint(Color(.text))

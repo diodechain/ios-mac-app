@@ -59,7 +59,7 @@ struct HomeConnectionCardView: View {
             } label: {
                 HStack(spacing: .themeSpacing4) {
                     Text(Localizable.actionHelp)
-                    IconProvider.questionCircle
+                    IconProvider.questionCircle.swiftUIImage
                         .resizable()
                         .frame(.square(16))
                 }
@@ -76,7 +76,7 @@ struct HomeConnectionCardView: View {
             }
             Spacer(minLength: 0)
             if showConnectionDetailsEnabled {
-                IconProvider.chevronRight
+                IconProvider.chevronRight.swiftUIImage
                     .resizable()
                     .frame(.square(16))
                     .foregroundColor(Color(.icon, .weak))

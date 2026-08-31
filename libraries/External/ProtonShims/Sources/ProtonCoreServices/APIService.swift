@@ -1,8 +1,41 @@
 import Foundation
 import ProtonCoreDoh
 
+public struct AcquiredSessionCredential {
+    public let userID: String
+
+    public init(userID: String = "") {
+        self.userID = userID
+    }
+}
+
+public enum SessionAcquiringResult {
+    case sessionAlreadyPresent(AcquiredSessionCredential)
+    case sessionFetchedAndAvailable(AcquiredSessionCredential)
+    case sessionUnavailable
+}
+
 public protocol APIService: AnyObject {
     var dohInterface: DoH { get }
+
+    func acquireSessionIfNeeded(completion: @escaping (Result<SessionAcquiringResult, Error>) -> Void)
+    func acquireSessionIfNeeded() async throws -> Result<SessionAcquiringResult, Error>
+    func setSessionUID(uid: String)
+    func getSession() -> URLSession?
+}
+
+public extension APIService {
+    func acquireSessionIfNeeded(completion: @escaping (Result<SessionAcquiringResult, Error>) -> Void) {
+        completion(.success(.sessionUnavailable))
+    }
+
+    func acquireSessionIfNeeded() async throws -> Result<SessionAcquiringResult, Error> {
+        .success(.sessionUnavailable)
+    }
+
+    func setSessionUID(uid _: String) {}
+
+    func getSession() -> URLSession? { nil }
 }
 
 public protocol APIServiceDelegate: AnyObject {
@@ -20,22 +53,13 @@ public extension APIServiceDelegate {
     var locale: String { "en_US" }
     var appVersion: String { "0.0.0" }
     var userAgent: String? { nil }
-    func onUpdate(serverTime: Int64) {}
+    func onUpdate(serverTime _: Int64) {}
     func isReachable() -> Bool { true }
     func onDohTroubleshot() {}
 }
 
 public protocol AuthSessionInvalidatedDelegate: AnyObject {
     func sessionWasInvalidated(for sessionUID: String, isAuthenticatedSession: Bool)
-}
-
-public enum SessionAcquiringResult {
-    case sessionAlreadyPresent(credential: Any?)
-    case sessionFetchedAndAvailable(credential: Any?)
-}
-
-public extension SessionAcquiringResult {
-    func get() throws -> Self { self }
 }
 
 public enum ClientApp: String {

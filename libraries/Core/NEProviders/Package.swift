@@ -4,10 +4,8 @@
 import PackageDescription
 
 enum ProTUNFFITargetKind {
-    static let current: Self = .remote(
-        url: "https://nexus.protontech.ch/repository/vpn-protun/master/protunFFI.xcframework.zip",
-        checksum: "c770dc20d2f23815cd030f8c7b982390aab1e9a7ef16caec6b57132d561d381f"
-    )
+    // Use local xcframework: nexus.protontech.ch is unreachable from this network.
+    static let current: Self = .local
 
     case local
     case remote(url: String, checksum: String)

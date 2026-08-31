@@ -209,3 +209,29 @@ public enum LoginUIModule {
 }
 
 public final class SecurityKeysViewController: UIViewController {}
+
+public enum LUITranslation: String {
+    case sign_in_with_sso_button
+    case email_field_title
+    case sign_in_button_with_password
+    case username_title
+    case _core_sign_in_screen_title
+    case sign_in_button
+
+    public var l10n: String {
+        switch self {
+        case .sign_in_with_sso_button:
+            "Sign in with SSO"
+        case .email_field_title:
+            "Email"
+        case .sign_in_button_with_password:
+            "Sign in with password"
+        case .username_title:
+            "Username"
+        case ._core_sign_in_screen_title:
+            "Sign in"
+        case .sign_in_button:
+            "Sign in"
+        }
+    }
+}

@@ -59,7 +59,7 @@ public final class DiodeRpcClient: @unchecked Sendable {
         let url = URL(string: wsURL)!
         self.wsURL = url
         self.lifecycleListener = lifecycleListener
-        let delegateBox = WebSocketDelegateBox()
+        let delegateBox = WebSocketDelegateBox(wsURLString: wsURL)
         self.delegateBox = delegateBox
         if let session {
             self.session = session
@@ -429,6 +429,12 @@ private actor RpcClientState {
 private final class WebSocketDelegateBox: NSObject, URLSessionWebSocketDelegate, @unchecked Sendable {
     weak var owner: DiodeRpcClient?
     var onOpen: ((Error?) -> Void)?
+    private let wsURLString: String
+
+    init(wsURLString: String) {
+        self.wsURLString = wsURLString
+        super.init()
+    }
 
     func urlSession(
         _ session: URLSession,
@@ -448,5 +454,24 @@ private final class WebSocketDelegateBox: NSObject, URLSessionWebSocketDelegate,
         let reasonText = reason.flatMap { String(data: $0, encoding: .utf8) } ?? ""
         let message = "WebSocket closed: \(closeCode.rawValue) \(reasonText)"
         owner?.handleTerminalClose(reason: message)
+    }
+
+    func urlSession(
+        _ session: URLSession,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    ) {
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
+              let trust = challenge.protectionSpace.serverTrust
+        else {
+            completionHandler(.performDefaultHandling, nil)
+            return
+        }
+
+        if DiodeTlsPolicy.shouldTrustAllCertificatesForWebSocketURL(wsURLString) {
+            completionHandler(.useCredential, URLCredential(trust: trust))
+            return
+        }
+        completionHandler(.performDefaultHandling, nil)
     }
 }

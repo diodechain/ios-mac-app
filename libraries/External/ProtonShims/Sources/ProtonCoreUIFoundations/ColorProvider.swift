@@ -22,7 +22,17 @@ public enum Brand: Sendable {
 
 /// Diode-branded palette matching ProtonCore `var ColorProvider` API.
 public struct ColorProviderPalette: Sendable {
-    public static var brand: Brand = .vpn
+    public var brand: Brand {
+        get { Self.sharedBrand }
+        nonmutating set { Self.sharedBrand = newValue }
+    }
+
+    private static var sharedBrand: Brand = .vpn
+
+    public static var brand: Brand {
+        get { sharedBrand }
+        set { sharedBrand = newValue }
+    }
 
     public var BrandNorm: ProtonColor
     public var Primary: ProtonColor
@@ -105,17 +115,22 @@ public var ColorProvider = ColorProviderPalette.diode
 
 private extension ColorProviderPalette {
     init() {
-        let brand = ProtonColor(protonHex: 0x6B4EFF)
-        let brandLight20 = ProtonColor(protonHex: 0x8971FF)
-        let brandLight40 = ProtonColor(protonHex: 0xA794FF)
-        let brandDark40 = ProtonColor(protonHex: 0x402F99)
-        let danger = ProtonColor(protonHex: 0xE74C3C)
+        // Diode brand tokens from diode_vpn_android colors.xml / docs/design.md
+        let brand = ProtonColor(protonHex: 0xF15D2F) // diode_orange
+        let brandLight20 = ProtonColor(protonHex: 0xF5835A)
+        let brandLight40 = ProtonColor(protonHex: 0xF9A88A)
+        let brandDark40 = ProtonColor(protonHex: 0xED4423) // diode_orange_dark
+        let danger = ProtonColor(protonHex: 0xEF4444) // diode_error
         let warning = ProtonColor(protonHex: 0xE8B500)
         let success = ProtonColor(protonHex: 0x1EA97A)
-        let info = ProtonColor(protonHex: 0x4A90D9)
-        let backgroundNorm = ProtonColor(protonHex: 0x1C1B24)
-        let backgroundWeak = ProtonColor(protonHex: 0x26252E)
-        let interactionWeak = ProtonColor(protonHex: 0x3A3847)
+        let info = ProtonColor(protonHex: 0x2D3E50) // diode_web_blue
+        let backgroundNorm = ProtonColor(protonHex: 0x161C2A) // diode_black_blue
+        let backgroundWeak = ProtonColor(protonHex: 0x1E2739) // diode_indigo
+        let interactionWeak = ProtonColor(protonHex: 0x3D4F6B) // diode_outline
+        let surfaceElevated = ProtonColor(protonHex: 0x232D42) // diode_surface_elevated
+        let onSurface = ProtonColor(protonHex: 0xE3E9ED)
+        let onSurfaceSecondary = ProtonColor(protonHex: 0xBDC3C7)
+        let accentDark = ProtonColor(protonHex: 0x243141)
 
         BrandNorm = brand
         Primary = brand
@@ -124,47 +139,47 @@ private extension ColorProviderPalette {
         InteractionNormHover = brandLight20
         InteractionNormActive = brandDark40
         InteractionDefault = interactionWeak
-        InteractionDefaultHover = ProtonColor(protonHex: 0x4A4858)
-        InteractionDefaultActive = ProtonColor(protonHex: 0x2E2D38)
+        InteractionDefaultHover = ProtonColor(protonHex: 0x4A5F7A)
+        InteractionDefaultActive = accentDark
         BrandLighten20 = brandLight20
         BrandLighten40 = brandLight40
         BrandDarken40 = brandDark40
         BackgroundSecondary = backgroundWeak
         BackgroundNorm = backgroundNorm
-        BackgroundWeak = ProtonColor(protonHex: 0x2E2D38)
-        BackgroundStrong = ProtonColor(protonHex: 0x121118)
-        BackgroundDeep = ProtonColor(protonHex: 0x121118)
-        TextNorm = ProtonColor(protonHex: 0xFFFFFF)
-        TextWeak = ProtonColor(protonHex: 0xB0AEC0)
-        TextHint = ProtonColor(protonHex: 0x7A778A)
-        TextDisabled = ProtonColor(protonHex: 0x5C596B)
+        BackgroundWeak = surfaceElevated
+        BackgroundStrong = ProtonColor(protonHex: 0x12161F)
+        BackgroundDeep = ProtonColor(protonHex: 0x12161F)
+        TextNorm = ProtonColor(protonHex: 0xF1F3F6) // diode_on_background
+        TextWeak = onSurfaceSecondary
+        TextHint = ProtonColor(protonHex: 0x5C5D5F) // diode_gray_muted
+        TextDisabled = ProtonColor(protonHex: 0x5C5D5F)
         TextInverted = backgroundNorm
         TextInvert = backgroundNorm
         InteractionWeak = interactionWeak
-        InteractionWeakHover = ProtonColor(protonHex: 0x4A4858)
-        InteractionWeakActive = ProtonColor(protonHex: 0x2E2D38)
+        InteractionWeakHover = ProtonColor(protonHex: 0x4A5F7A)
+        InteractionWeakActive = accentDark
         InteractionStrong = brandLight20
         InteractionNormPressed = brandDark40
         InteractionNormDisabled = interactionWeak
-        InteractionWeakPressed = ProtonColor(protonHex: 0x4A4858)
-        InteractionWeakDisabled = ProtonColor(protonHex: 0x2E2D38)
+        InteractionWeakPressed = ProtonColor(protonHex: 0x4A5F7A)
+        InteractionWeakDisabled = accentDark
         InteractionStrongPressed = brandDark40
         LinkNorm = brand
         LinkHover = brandLight20
         LinkActive = brandDark40
         SeparatorNorm = interactionWeak
         BorderNorm = interactionWeak
-        BorderWeak = ProtonColor(protonHex: 0x2E2D38)
+        BorderWeak = accentDark
         FieldNorm = backgroundWeak
-        FieldHover = ProtonColor(protonHex: 0x2E2D38)
-        FieldDisabled = ProtonColor(protonHex: 0x1C1B24)
+        FieldHover = surfaceElevated
+        FieldDisabled = backgroundNorm
         NotificationSuccess = success
         NotificationWarning = warning
         NotificationError = danger
         NotificationNorm = info
         SignalDanger = danger
-        SignalDangerHover = ProtonColor(protonHex: 0xF06A5C)
-        SignalDangerActive = ProtonColor(protonHex: 0xC0392B)
+        SignalDangerHover = ProtonColor(protonHex: 0xF87171)
+        SignalDangerActive = ProtonColor(protonHex: 0xDC2626)
         SignalWarning = warning
         SignalWarningHover = ProtonColor(protonHex: 0xF0C94A)
         SignalWarningActive = ProtonColor(protonHex: 0xC99700)
@@ -172,24 +187,24 @@ private extension ColorProviderPalette {
         SignalSuccessHover = ProtonColor(protonHex: 0x3BC99A)
         SignalSuccessActive = ProtonColor(protonHex: 0x168A62)
         SignalInfo = info
-        SignalInfoHover = ProtonColor(protonHex: 0x6AA8E8)
-        SignalInfoActive = ProtonColor(protonHex: 0x2F6FB8)
+        SignalInfoHover = ProtonColor(protonHex: 0x3D5268)
+        SignalInfoActive = ProtonColor(protonHex: 0x1F2A38)
         #if canImport(UIKit)
             White = UIColor.white
         #else
             White = NSColor.white
         #endif
-        IconWeak = ProtonColor(protonHex: 0x7A778A)
-        IconHint = ProtonColor(protonHex: 0x5C596B)
-        IconNorm = ProtonColor(protonHex: 0xFFFFFF)
+        IconWeak = onSurfaceSecondary
+        IconHint = ProtonColor(protonHex: 0x5C5D5F)
+        IconNorm = onSurface
         IconAccent = brand
-        Shade40 = Color(protonHex: 0x3A3847)
-        PurpleBase = ProtonColor(protonHex: 0x6B4EFF)
+        Shade40 = Color(protonHex: 0x3D4F6B)
+        PurpleBase = brand
         PinkBase = ProtonColor(protonHex: 0xE056FD)
         StrawberryBase = ProtonColor(protonHex: 0xF46B7D)
-        CarrotBase = ProtonColor(protonHex: 0xF5833A)
+        CarrotBase = brand
         SaharaBase = ProtonColor(protonHex: 0xE8B500)
-        SlateblueBase = ProtonColor(protonHex: 0x5B6EE1)
+        SlateblueBase = info
         PacificBase = ProtonColor(protonHex: 0x2D9CDB)
         ReefBase = ProtonColor(protonHex: 0x1EA97A)
         FernBase = ProtonColor(protonHex: 0x4CD964)

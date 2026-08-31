@@ -69,6 +69,10 @@ let package = Package(
             ],
             resources: [
                 .process("Resources"),
+            ],
+            swiftSettings: [
+                // Diode fork: always use StoreKit Diode payments shim (Proton Core payments APIs are stubbed).
+                .define("DIODE_BACKEND"),
             ]
         ),
         .target(

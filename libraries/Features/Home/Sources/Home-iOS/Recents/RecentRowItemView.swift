@@ -96,7 +96,7 @@ struct RecentRowItemView: View {
 
 extension RecentConnection {
     var icon: Image {
-        pinned ? IconProvider.pinFilled : IconProvider.clockRotateLeft
+        pinned ? IconProvider.pinFilled.swiftUIImage : IconProvider.clockRotateLeft.swiftUIImage
     }
 }
 

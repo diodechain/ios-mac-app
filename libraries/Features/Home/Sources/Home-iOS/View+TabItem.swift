@@ -28,7 +28,7 @@ public extension View {
             Label {
                 Text(Localizable.settingsTab)
             } icon: {
-                IconProvider.cogWheel
+                IconProvider.cogWheel.swiftUIImage
             }
         }
     }
@@ -38,7 +38,7 @@ public extension View {
             Label {
                 Text(Localizable.countriesTab)
             } icon: {
-                IconProvider.earth
+                IconProvider.earth.swiftUIImage
             }
         }
     }
@@ -48,7 +48,7 @@ public extension View {
             Label {
                 Text(Localizable.homeTab)
             } icon: {
-                IconProvider.houseFilled
+                IconProvider.houseFilled.swiftUIImage
             }
         }
     }

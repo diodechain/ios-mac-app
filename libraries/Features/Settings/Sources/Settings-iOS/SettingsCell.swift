@@ -126,24 +126,24 @@ struct SettingsCell_Previews: PreviewProvider {
         List {
             Section {
                 SettingsCell(
-                    icon: IconProvider.user,
+                    icon: IconProvider.user.swiftUIImage,
                     content: .multiline(title: "Eric Norbert", subtitle: "eric.norbert@proton.me"),
                     accessory: .disclosure
                 )
             }
             Section {
                 SettingsCell(
-                    icon: IconProvider.gift,
+                    icon: IconProvider.gift.swiftUIImage,
                     content: .standard(title: "NetShield", value: NetShieldState.on.localizedDescription),
                     accessory: .disclosure
                 )
                 SettingsCell(
-                    icon: IconProvider.lifeRing,
+                    icon: IconProvider.lifeRing.swiftUIImage,
                     content: .standard(title: "Support Center", value: NetShieldState.on.localizedDescription),
                     accessory: .externalLink
                 )
                 SettingsCell(
-                    icon: IconProvider.arrowInToRectangle,
+                    icon: IconProvider.arrowInToRectangle.swiftUIImage,
                     content: .standard(title: "Sign Out", value: nil),
                     accessory: .none
                 )

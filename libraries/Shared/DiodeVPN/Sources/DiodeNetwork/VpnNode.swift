@@ -104,6 +104,33 @@ public func parseNodeFromNetworkEntry(_ entry: [String: Any]) -> VpnNode? {
     return VpnNode(nodeIdHex: nodeIdHex, host: host, name: name)
 }
 
+extension VpnNode {
+    public func withGeo(
+        latitude: Double? = nil,
+        longitude: Double? = nil,
+        city: String? = nil,
+        country: String? = nil
+    ) -> VpnNode {
+        VpnNode(
+            nodeIdHex: nodeIdHex,
+            host: host,
+            name: name,
+            latitude: latitude ?? self.latitude,
+            longitude: longitude ?? self.longitude,
+            city: city ?? self.city,
+            country: country ?? self.country,
+            wsRpcURLOverride: wsRpcURLOverride,
+            httpRpcURLOverride: httpRpcURLOverride
+        )
+    }
+
+    public var primaryDisplayName: String {
+        if let name, !name.isEmpty { return name }
+        if let city, !city.isEmpty { return city }
+        return host
+    }
+}
+
 /// Parses all VPN-eligible nodes from a `dio_network` result array.
 public func parseVpnNodes(fromNetworkResult result: [[String: Any]]) -> [VpnNode] {
     result.compactMap(parseNodeFromNetworkEntry)

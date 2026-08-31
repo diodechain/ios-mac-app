@@ -3,9 +3,10 @@
 //  DiodeConnection
 //
 //  Reads Diode credentials from app-injected values (ObfuscatedConstants) with
-//  DEBUG launch-argument overrides matching the Environment Selector pattern.
+//  launch-argument overrides. The Console API key is never committed; inject it
+//  at build time (see scripts/inject-diode-console-secrets.sh).
 
-import Domain
+import DiodeNetwork
 import Foundation
 
 public enum DiodeBackendConfig {
@@ -30,70 +31,52 @@ public enum DiodeBackendConfig {
         injectedVpnYearlyProductId = vpnYearlyProductId
     }
 
+    /// Organization Console API key. Empty when not injected (fleet registration no-ops).
     public static var consoleApiKey: String {
-        #if DEBUG
         resolve(
             launchArgument: LaunchArgument.consoleApiKey,
             injected: injectedConsoleApiKey,
-            debugFallback: debugFallbackConsoleApiKey
+            fallback: ""
         )
-        #else
-        resolve(
-            launchArgument: LaunchArgument.consoleApiKey,
-            injected: injectedConsoleApiKey,
-            debugFallback: ""
-        )
-        #endif
     }
 
+    /// Fleet UUID for Console `fleet.member.add` / `fleet.info`.
     public static var consoleFleetUuid: String {
-        #if DEBUG
         resolve(
             launchArgument: LaunchArgument.consoleFleetUuid,
             injected: injectedConsoleFleetUuid,
-            debugFallback: debugFallbackFleetUuid
+            fallback: NetworkConfig.diodeConsoleFleetUUID
         )
-        #else
-        resolve(
-            launchArgument: LaunchArgument.consoleFleetUuid,
-            injected: injectedConsoleFleetUuid,
-            debugFallback: ""
-        )
-        #endif
     }
 
     public static var vpnYearlyProductId: String {
         resolve(
             launchArgument: LaunchArgument.vpnYearlyProductId,
             injected: injectedVpnYearlyProductId,
-            debugFallback: "diode_vpn_yearly"
+            fallback: "diode_vpn_yearly"
         )
     }
 
     private static func resolve(
         launchArgument: String,
         injected: String?,
-        debugFallback: String
+        fallback: String
     ) -> String {
         if let injected, !injected.isEmpty {
             return injected
         }
-        #if DEBUG
-        if let override = ProcessInfo.processInfo.firstArgumentValue(forKey: launchArgument),
-           !override.isEmpty
-        {
+        if let override = launchArgumentValue(launchArgument), !override.isEmpty {
             return override
         }
-        return debugFallback
-        #else
-        return ""
-        #endif
+        return fallback
     }
 
-    #if DEBUG
-    // Android NetworkConfig.kt parity for local development.
-    private static let debugFallbackConsoleApiKey =
-        "dck_4c4511c6bf7943a17a0a720cc90c22bc24968f9c214e9e48"
-    private static let debugFallbackFleetUuid = "75894474-0117-4f83-89d1-ee8f260c490b"
-    #endif
+    private static func launchArgumentValue(_ key: String) -> String? {
+        let prefix = "\(key)="
+        for argument in ProcessInfo.processInfo.arguments where argument.hasPrefix(prefix) {
+            let value = String(argument.dropFirst(prefix.count))
+            return value.isEmpty ? nil : value
+        }
+        return nil
+    }
 }

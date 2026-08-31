@@ -77,5 +77,10 @@ let package = Package(
             dependencies: ["DiodeRPC", "DiodeNetwork"],
             path: "Tests/DiodeRPCTests"
         ),
+        .testTarget(
+            name: "DiodeNetworkTests",
+            dependencies: ["DiodeNetwork"],
+            path: "Tests/DiodeNetworkTests"
+        ),
     ]
 )

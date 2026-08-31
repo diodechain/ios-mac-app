@@ -73,7 +73,7 @@ Production Diode VPN clients must register each install’s **TicketV2 signing a
 | Constant | Value | Purpose |
 |----------|-------|---------|
 | Console RPC URL | `https://console.diode.io/api/v1/rpc` | HTTPS JSON-RPC endpoint |
-| Console API key | `dck_4c4511c6bf7943a17a0a720cc90c22bc24968f9c214e9e48` | `Authorization: Bearer …` for `fleet.*` methods |
+| Console API key | Injected at build time (`DIODE_CONSOLE_API_KEY`) | `Authorization: Bearer …` for `fleet.*` methods |
 | Console fleet UUID | `75894474-0117-4f83-89d1-ee8f260c490b` | `fleet_id` in `fleet.member.add` |
 | VPN fleet contract (TicketV2) | `0xd5b1221fce90049fbfc917f28b8996a07fdfdea7` | On-chain fleet in ticket blob |
 

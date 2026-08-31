@@ -24,11 +24,51 @@ public struct SSOResponseToken {
 }
 
 public struct AuthenticationOptions {
-    public init() {}
+    public let relyingPartyIdentifier: String
+    public let challenge: Data
+    public let allowedCredentialIds: [Data]
+
+    public init(
+        relyingPartyIdentifier: String = "",
+        challenge: Data = Data(),
+        allowedCredentialIds: [Data] = []
+    ) {
+        self.relyingPartyIdentifier = relyingPartyIdentifier
+        self.challenge = challenge
+        self.allowedCredentialIds = allowedCredentialIds
+    }
 }
 
 public struct Fido2Signature {
-    public init(credentialAssertion _: Any, authenticationOptions _: AuthenticationOptions) {}
+    public let signature: Data
+    public let credentialID: Data
+    public let authenticatorData: Data
+    public let clientData: Data
+    public let authenticationOptions: AuthenticationOptions
+
+    public init(
+        signature: Data,
+        credentialID: Data,
+        authenticatorData: Data,
+        clientData: Data,
+        authenticationOptions: AuthenticationOptions
+    ) {
+        self.signature = signature
+        self.credentialID = credentialID
+        self.authenticatorData = authenticatorData
+        self.clientData = clientData
+        self.authenticationOptions = authenticationOptions
+    }
+
+    public init(credentialAssertion _: Any, authenticationOptions: AuthenticationOptions) {
+        self.init(
+            signature: Data(),
+            credentialID: Data(),
+            authenticatorData: Data(),
+            clientData: Data(),
+            authenticationOptions: authenticationOptions
+        )
+    }
 }
 
 public enum AvailableDomainsType {
@@ -46,8 +86,12 @@ public struct LoginData {
 
 public enum LoginStatus {
     case finished(LoginData)
-    case twoFactorRequired(AuthenticationOptions?)
     case ssoChallenge(URLRequest)
+    case askTOTP
+    case askAny2FA(AuthenticationOptions)
+    case askFIDO2(AuthenticationOptions)
+    case askSecondPassword
+    case chooseInternalUsernameAndCreateInternalAddress
 }
 
 public enum LoginError: Error {
@@ -55,6 +99,43 @@ public enum LoginError: Error {
     case wrongCredentials
     case apiMightBeBlocked
     case invalidResponse
+    case invalidAccessToken(message: String?)
+    case invalidCredentials(message: String?)
+    case invalid2FACode(message: String?)
+
+    public var bestShotAtReasonableErrorCode: Int {
+        switch self {
+        case let .generic(_, code, _):
+            code
+        case .wrongCredentials, .invalidCredentials:
+            401
+        case .invalid2FACode:
+            403
+        case .invalidAccessToken:
+            401
+        case .apiMightBeBlocked:
+            APIErrorCode.potentiallyBlocked
+        case .invalidResponse:
+            500
+        }
+    }
+
+    public var userFacingMessageInLogin: String {
+        switch self {
+        case let .generic(message, _, _):
+            message ?? "Login failed"
+        case let .invalidAccessToken(message),
+             let .invalidCredentials(message),
+             let .invalid2FACode(message):
+            message ?? "Login failed"
+        case .wrongCredentials:
+            "Wrong credentials"
+        case .apiMightBeBlocked:
+            "API might be blocked"
+        case .invalidResponse:
+            "Invalid response"
+        }
+    }
 }
 
 public final class LoginService: Login {
@@ -94,6 +175,10 @@ public final class LoginService: Login {
     public func updateAllAvailableDomains(type _: AvailableDomainsType, completion: @escaping (Result<Void, Error>) -> Void) {
         completion(.success(()))
     }
+
+    public func getSSORequest(challenge _: URLRequest) async -> (URLRequest?, String?) {
+        (nil, "SSO is not available")
+    }
 }
 
 public protocol Login: AnyObject {
@@ -112,6 +197,7 @@ public protocol Login: AnyObject {
     func provide2FACode(_ code: String, completion: @escaping (Result<LoginStatus, LoginError>) -> Void)
     func provideFido2Signature(_ signature: Fido2Signature, completion: @escaping (Result<LoginStatus, LoginError>) -> Void)
     func updateAllAvailableDomains(type _: AvailableDomainsType, completion: @escaping (Result<Void, Error>) -> Void)
+    func getSSORequest(challenge: URLRequest) async -> (URLRequest?, String?)
 }
 
 public struct SignupParameters {

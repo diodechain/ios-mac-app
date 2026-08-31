@@ -123,22 +123,7 @@ final class DiodePaymentsPlanServiceV2: PaymentsPlanServiceV2, @unchecked Sendab
             name: "vpn2022",
             title: "Diode VPN",
             description: "Yearly subscription",
-            cycle: 12,
-            cycleDescription: nil,
-            currency: nil,
-            amount: nil,
-            offer: nil,
-            periodStart: nil,
-            periodEnd: nil,
-            createTime: nil,
-            couponCode: nil,
-            discount: nil,
-            renewDiscount: nil,
-            renewAmount: nil,
-            renew: nil,
-            external: nil,
-            entitlements: [],
-            decorations: []
+            cycle: 12
         )
     }
 
@@ -148,42 +133,9 @@ final class DiodePaymentsPlanServiceV2: PaymentsPlanServiceV2, @unchecked Sendab
     }
 
     private func makeComposedPlan(product: Product) throws -> ComposedPlan {
-        let instance = try decodeJSON(PlanInstance.self, from: planInstanceJSONObject(productId: product.id))
-        let availablePlan = AvailablePlan(
-            description: "Diode VPN yearly subscription",
-            instances: [instance],
-            name: "vpn2022",
-            state: 1,
-            title: "VPN Plus",
-            features: 0,
-            entitlements: [],
-            decorations: [],
-            ID: "diode-vpn-yearly",
-            services: 4
-        )
+        let instance = PlanInstance(cycle: 12, amount: 0, currency: "USD")
+        let availablePlan = AvailablePlan(name: "vpn2022", instances: [instance])
         return ComposedPlan(plan: availablePlan, instance: instance, product: product)
-    }
-
-    private func planInstanceJSONObject(productId: String) -> [String: Any] {
-        [
-            "price": [
-                ["current": 0, "currency": "USD", "ID": "diode"],
-            ],
-            "description": "Yearly",
-            "cycle": 12,
-            "periodEnd": 0,
-            "vendors": [
-                "apple": [
-                    "productID": productId,
-                    "customerID": NSNull(),
-                ],
-            ],
-        ]
-    }
-
-    private func decodeJSON<T: Decodable>(_ type: T.Type, from object: [String: Any]) throws -> T {
-        let data = try JSONSerialization.data(withJSONObject: object)
-        return try JSONDecoder().decode(type, from: data)
     }
 }
 

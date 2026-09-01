@@ -18,7 +18,7 @@
 
 import ProtonCoreNetworking
 
-public struct TelemetryResponse: Codable {
+public struct TelemetryResponse: Codable, APIDecodableResponse {
     let code: Int
 }
 

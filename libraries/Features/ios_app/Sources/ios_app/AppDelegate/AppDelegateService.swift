@@ -25,6 +25,7 @@ import WidgetIntents
 import Dependencies
 
 import Connection
+import DiodeConnection
 import Domain
 import Ergonomics
 import ExtensionIPC
@@ -112,6 +113,11 @@ public final class AppDelegateService: AppDelegateProtocol {
             #endif
         }
         log.info("applicationDidFinishLaunchingWithOptions", category: .os)
+
+        if DiodeBackend.isEnabled {
+            DiodeAppLifecycle.onAppLaunch(appLabel: Self.diodeAppLaunchLabel(platform: "iOS"))
+            DiodeBackendLiveConfiguration.syncServerListIfNeeded()
+        }
 
         AnnouncementButtonViewModel.shared = container.makeAnnouncementButtonViewModel()
 
@@ -262,6 +268,12 @@ public final class AppDelegateService: AppDelegateProtocol {
     }
 
     // MARK: - Private Methods
+
+    private static func diodeAppLaunchLabel(platform: String) -> String {
+        let shortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        return "Diode VPN \(platform) \(shortVersion) (\(build))"
+    }
 
     private func setupLogsForApp() {
         @Dependency(\.logFileManager) var logFileManager

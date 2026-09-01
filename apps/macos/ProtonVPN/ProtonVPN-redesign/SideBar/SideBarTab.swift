@@ -54,11 +54,11 @@
         var image: SwiftUI.Image {
             switch self {
             case .home:
-                IconProvider.house
+                IconProvider.house.swiftUIImage
             case .countries:
-                IconProvider.earth
+                IconProvider.earth.swiftUIImage
             case .settings:
-                IconProvider.cogWheel
+                IconProvider.cogWheel.swiftUIImage
             }
         }
     }

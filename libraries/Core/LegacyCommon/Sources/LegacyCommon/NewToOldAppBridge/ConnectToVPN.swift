@@ -15,6 +15,7 @@
 //  along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
 
 import Connection
+import DiodeConnection
 import Domain
 import Persistence
 import ProtonCoreFeatureFlags
@@ -40,10 +41,21 @@ extension ConnectToVPNKey: @retroactive DependencyKey {
         FeatureFlagsRepository.isConnectionFeatureEnabled
     }
 
-    public static let liveValue = if Self.isEnabled {
+    public static let liveValue = if DiodeBackend.isEnabled {
+        diodeConnect
+    } else if Self.isEnabled {
         newConnect
     } else {
         legacyConnect
+    }
+
+    static let diodeConnect: @Sendable (
+        ConnectionSpec,
+        ConnectionProtocol?,
+        UserInitiatedVPNChange.VPNTrigger?
+    ) async throws -> Void = { spec, _, trigger in
+        AppEvent.userInitiatedVPNChange.post(UserInitiatedVPNChange.connect(trigger))
+        try await DiodeConnectBridge.connect(spec: spec, trigger: trigger)
     }
 
     static let newConnect: @Sendable (

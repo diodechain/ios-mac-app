@@ -18,7 +18,7 @@ let package = Package(
         .library(name: "VPNSharedTesting", targets: ["VPNSharedTesting"]),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../../Foundations/Domain"),
         .package(path: "../../Foundations/Ergonomics"),
@@ -68,7 +68,7 @@ let package = Package(
                 "VPNShared",
                 .product(name: "Timer", package: "Timer"),
                 .product(name: "Logging", package: "swift-log"),
-                .product(name: "ProtonCoreUtilities", package: "protoncore"),
+                .product(name: "ProtonCoreUtilities", package: "ProtonShims"),
             ]
         ),
         .target(
@@ -84,7 +84,7 @@ let package = Package(
                 .product(name: "CasePaths", package: "swift-case-paths"),
                 .product(name: "Sharing", package: "swift-sharing"),
                 .product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
-                .product(name: "ProtonCoreNetworking", package: "protoncore"), // AuthCredential
+                .product(name: "ProtonCoreNetworking", package: "ProtonShims"), // AuthCredential
                 .product(name: "IssueReporting", package: "xctest-dynamic-overlay"),
                 .product(name: "Sentry", package: "sentry-cocoa"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
@@ -104,7 +104,7 @@ let package = Package(
                 "Domain",
                 "VPNShared",
                 "VPNAppCore",
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
             ]
         ),
         .testTarget(

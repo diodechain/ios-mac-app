@@ -61,11 +61,11 @@ public struct Accessory: View {
         var image: Image? {
             switch self {
             case .disclosure:
-                IconProvider.chevronRight
+                IconProvider.chevronRight.swiftUIImage
             case .externalLink:
-                IconProvider.arrowOutSquare
+                IconProvider.arrowOutSquare.swiftUIImage
             case let .checkmark(isActive):
-                isActive ? IconProvider.checkmarkCircleFilled : IconProvider.emptyCircle
+                isActive ? IconProvider.checkmarkCircleFilled.swiftUIImage : IconProvider.emptyCircle.swiftUIImage
             case .none:
                 nil
             }

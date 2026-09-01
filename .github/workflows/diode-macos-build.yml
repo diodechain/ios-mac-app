@@ -1,0 +1,104 @@
+name: DiodeVPN macOS Build
+
+on:
+  push:
+    branches: [develop, master, main]
+  pull_request:
+    branches: [develop, master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean-tests:
+    name: Lean DiodeVPN tests
+    runs-on: macos-15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run lean package tests
+        run: ./scripts/test-diode-lean.sh
+
+  build-debug-diode:
+    name: Build DiodeVPN-macOS Debug-Diode
+    runs-on: macos-15
+    needs: lean-tests
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Prepare external deps (wireguard, apple-fusion, protunFFI stub)
+        run: ./scripts/ci-prepare-external-deps.sh
+
+      - name: Require Diode Console API key secret
+        uses: ./.github/actions/require-diode-console-api-key
+        with:
+          api-key: ${{ secrets.DIODE_CONSOLE_API_KEY }}
+
+      - name: Select Xcode
+        run: |
+          if [[ -d /Applications/Xcode_16.4.app ]]; then
+            sudo xcode-select -s /Applications/Xcode_16.4.app
+          elif [[ -d /Applications/Xcode.app ]]; then
+            sudo xcode-select -s /Applications/Xcode.app
+          fi
+          xcodebuild -version
+
+      - name: Install Go 1.25
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.x"
+
+      - name: Inject Diode Console secrets
+        env:
+          DIODE_CONSOLE_API_KEY: ${{ secrets.DIODE_CONSOLE_API_KEY }}
+        run: ./scripts/inject-diode-console-secrets.sh
+
+      - name: Smoke-test Console API key
+        env:
+          DIODE_CONSOLE_API_KEY: ${{ secrets.DIODE_CONSOLE_API_KEY }}
+          CI: "true"
+          GITHUB_ACTIONS: "true"
+        run: |
+          cd libraries/Shared/DiodeVPN
+          swift test --filter DiodeConsoleApiKeySmokeTests
+
+      - name: Resolve SPM (cached packages dir)
+        run: mkdir -p /tmp/ProtonVPN-SourcePackages
+
+      - name: Build DiodeVPN-macOS (Debug-Diode)
+        env:
+          DIODE_CONSOLE_API_KEY: ${{ secrets.DIODE_CONSOLE_API_KEY }}
+          GOPROXY: https://proxy.golang.org,direct
+        run: |
+          set -euo pipefail
+          set -o pipefail
+          xcodebuild \
+            -workspace ProtonVPN.xcworkspace \
+            -scheme DiodeVPN-macOS \
+            -configuration Debug-Diode \
+            -destination 'platform=macOS,arch=arm64' \
+            -clonedSourcePackagesDirPath /tmp/ProtonVPN-SourcePackages \
+            -skipPackagePluginValidation \
+            -skipMacroValidation \
+            build \
+            CODE_SIGNING_ALLOWED=NO \
+            ARCHS=arm64 \
+            ONLY_ACTIVE_ARCH=YES \
+            2>&1 | tee /tmp/diode-macos-ci.log
+          if ! grep -q "BUILD SUCCEEDED" /tmp/diode-macos-ci.log; then
+            echo "xcodebuild did not report BUILD SUCCEEDED"
+            grep -E "error:|BUILD FAILED" /tmp/diode-macos-ci.log | tail -40 || true
+            exit 1
+          fi
+          echo "BUILD SUCCEEDED"
+
+      - name: Upload build log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diode-macos-ci-log
+          path: /tmp/diode-macos-ci.log
+          if-no-files-found: ignore

@@ -20,7 +20,7 @@ let package = Package(
         .library(name: "ConnectionTestSupport", targets: ["CoreConnectionTestSupport", "ConnectionTestSupport"]),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"), // GoLibs
+        .package(path: "../../External/ProtonShims"), // GoLibs
 
         .package(path: "../CommonNetworking"),
 
@@ -47,7 +47,7 @@ let package = Package(
                 "Ergonomics",
                 "PMLogger",
                 "ExtensionIPC",
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"), // Temporary
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"), // Temporary
                 .product(name: "VPNShared", package: "NEHelper"),
                 // Required for CustomDumpStringConvertible.
                 .product(name: "CustomDump", package: "swift-custom-dump"),
@@ -72,7 +72,7 @@ let package = Package(
                 .product(name: "VPNAppCore", package: "NEHelper"), // VpnAuthKeychain
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "CasePaths", package: "swift-case-paths"),
-                .product(name: "GoLibsCryptoVPNPatchedGo", package: "protoncore"),
+                .product(name: "GoLibsCryptoVPNPatchedGo", package: "ProtonShims"),
             ]
         ),
         .target(
@@ -80,7 +80,7 @@ let package = Package(
             dependencies: [
                 "CoreConnection",
                 .product(name: "VPNAppCore", package: "NEHelper"),
-                .product(name: "GoLibsCryptoVPNPatchedGo", package: "protoncore"),
+                .product(name: "GoLibsCryptoVPNPatchedGo", package: "ProtonShims"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "CasePaths", package: "swift-case-paths"),
                 .product(name: "IssueReporting", package: "xctest-dynamic-overlay"),
@@ -95,7 +95,7 @@ let package = Package(
                 "Localization",
                 "Hermes",
                 "CommonNetworking",
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
                 .product(name: "VPNAppCore", package: "NEHelper"),
                 .product(name: "IssueReporting", package: "xctest-dynamic-overlay"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),

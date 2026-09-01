@@ -91,7 +91,7 @@ struct RecentRowItemView: View {
                 ).lineLimit(1)
 
                 if item.underMaintenance {
-                    IconProvider.wrench
+                    IconProvider.wrench.swiftUIImage
                         .resizable()
                         .frame(.square(infoIconSize))
                         .foregroundColor(.init(.icon, .weak))

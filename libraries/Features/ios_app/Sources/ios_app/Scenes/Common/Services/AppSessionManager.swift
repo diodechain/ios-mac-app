@@ -30,6 +30,7 @@ import ProtonCoreFeatureFlags
 
 import Announcement
 import CommonNetworking
+import DiodeConnection
 import ExtensionIPC
 import LegacyCommon
 import Telemetry
@@ -66,6 +67,7 @@ protocol AppSessionManager {
 
     func loadDataWithoutFetching() -> Bool
     func loadDataWithoutLogin() async throws
+    func establishDiodeNavigationSession() async throws
     func canPreviewApp() -> Bool
     func refreshUserInfo()
 }
@@ -130,6 +132,10 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
 
     @MainActor
     override func attemptSilentLogIn() async throws {
+        if DiodeSessionBootstrap.isEnabled {
+            try await establishDiodeNavigationSession()
+            return
+        }
         guard authKeychain.fetch()?.username != nil else {
             throw CommonVpnError.userCredentialsMissing
         }
@@ -187,7 +193,30 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
         !isServerRepositoryEmpty && propertiesManager.userLocation?.ip != nil
     }
 
+    func establishDiodeNavigationSession() async throws {
+        guard DiodeSessionBootstrap.isEnabled else { return }
+        log.info("Establishing Diode navigation session without Proton OAuth", category: .app)
+        do {
+            let servers = try await DiodeLogicalsLive.fetchLogicals(countryCode: nil)
+            serverManager.update(servers: servers, freeServersOnly: false, lastModifiedAt: nil)
+        } catch {
+            log.error("Failed to sync Diode server list before establishing session", category: .api, metadata: ["error": "\(error)"])
+            throw error
+        }
+        await MainActor.run {
+            sessionStatus = .established
+            loggedIn = true
+            propertiesManager.hasConnected = true
+            AppEvent.sessionManagerSessionChanged.post(vpnGateway)
+            refreshTimer.startTimers()
+        }
+    }
+
     func loadDataWithoutLogin() async throws {
+        if DiodeSessionBootstrap.isEnabled {
+            try await establishDiodeNavigationSession()
+            return
+        }
         @Dependency(\.serverManager) var serverManager
         @Dependency(\.serverRepository) var serverRepository
         log.info("Attempting to load data without login")
@@ -240,6 +269,10 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
 
     @MainActor
     func refreshVpnAuthCertificate() async throws {
+        guard !DiodeSessionBootstrap.isEnabled else {
+            log.info("Not refreshing vpn certificate - Diode backend")
+            return
+        }
         guard loggedIn else {
             log.info("Not refreshing vpn certificate - client not logged in")
             return
@@ -403,6 +436,7 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
     }
 
     func refreshUserInfo() {
+        guard !DiodeSessionBootstrap.isEnabled else { return }
         guard FeatureFlagsRepository.shared.isEnabled(CoreFeatureFlagType.accountRecovery, reloadValue: true),
               refreshUserInfoTask == nil else { return }
         refreshUserInfoTask = Task { [weak self] in

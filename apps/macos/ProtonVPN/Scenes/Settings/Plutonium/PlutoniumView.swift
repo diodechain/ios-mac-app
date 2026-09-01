@@ -296,7 +296,7 @@ public struct PlutoniumView: View {
             Button {
                 store.send(.entryClicked(.ip(ip), .remove, store.feature.mode))
             } label: {
-                IconProvider.cross
+                IconProvider.cross.swiftUIImage
                     .resizable()
                     .frame(.square(.themeSpacing16))
                     .padding(.themeSpacing4)
@@ -507,9 +507,9 @@ extension PlutoniumFeature.State.Operation {
     var icon: Image {
         switch self {
         case .add:
-            IconProvider.plusCircle
+            IconProvider.plusCircle.swiftUIImage
         case .remove:
-            IconProvider.minusCircle
+            IconProvider.minusCircle.swiftUIImage
         }
     }
 }

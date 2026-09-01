@@ -56,13 +56,13 @@ struct ConnectionStatusView: View {
         HStack(alignment: .bottom, spacing: .themeSpacing8) {
             switch protectionState {
             case .protected:
-                IconProvider.lockFilled
+                IconProvider.lockFilled.swiftUIImage
                     .foregroundColor(Color(.background, .success))
                 Text(Localizable.connectionStatusProtected)
                     .themeFont(.title2(emphasised: true))
                     .foregroundColor(Color(.text, .success))
             case .protectedSecureCore:
-                IconProvider.locksFilled
+                IconProvider.locksFilled.swiftUIImage
                     .foregroundColor(Color(.background, .success))
                 Text(Localizable.connectionStatusProtected)
                     .themeFont(.title2(emphasised: true))
@@ -70,7 +70,7 @@ struct ConnectionStatusView: View {
             case .protecting:
                 ProgressView()
             case .unprotected:
-                IconProvider.lockOpenFilled2
+                IconProvider.lockOpenFilled2.swiftUIImage
                     .styled(.danger)
             }
         }

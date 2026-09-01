@@ -89,12 +89,12 @@ extension NETunnelProviderProtocol {
 
         wg_log(.info, message: "Using configuration format \(String(describing: version)).")
 
-        guard case .v1 = version else {
-            wg_log(.info, message: "Version \(version) is not yet supported.")
-            return nil
+        let configData: Data
+        switch version {
+        case .v1, .v2:
+            configData = Data(data[1...])
         }
 
-        let configData = data[1...]
         let decoder = JSONDecoder()
         guard let storedConfig = (try? decoder.decode(
             StoredWireguardConfig.self,

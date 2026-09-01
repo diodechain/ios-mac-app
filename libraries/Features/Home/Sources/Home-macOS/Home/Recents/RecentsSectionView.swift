@@ -43,8 +43,8 @@ struct RecentsSectionView: View {
             } label: {
                 HStack(spacing: .themeSpacing4) {
                     (recentsHidden
-                        ? IconProvider.chevronRightFilled
-                        : IconProvider.chevronDownFilled)
+                        ? IconProvider.chevronRightFilled.swiftUIImage
+                        : IconProvider.chevronDownFilled.swiftUIImage)
                         .resizable()
                         .frame(.square(16))
                     Text(Localizable.homeRecentsRecentSection)

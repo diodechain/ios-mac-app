@@ -30,6 +30,7 @@ import ProtonCoreUtilities
 
 import Announcement
 import CommonNetworking
+import DiodeConnection
 import LegacyCommon
 import Telemetry
 import VPNAppCore // UnauthKeychain
@@ -57,6 +58,7 @@ protocol AppSessionManager {
     func logOut(force: Bool, reason: String?)
     func logOut()
 
+    func establishDiodeNavigationSession() async throws
     func replyToApplicationShouldTerminate()
 }
 
@@ -112,6 +114,10 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
 
     @MainActor
     override func attemptSilentLogIn() async throws {
+        if DiodeSessionBootstrap.isEnabled {
+            try await establishDiodeNavigationSession()
+            return
+        }
         log.debug("Attempt silent login", category: .app)
         guard authKeychain.fetch() != nil else {
             throw CommonVpnError.userCredentialsMissing
@@ -155,7 +161,29 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
     }
 
     @MainActor
+    func establishDiodeNavigationSession() async throws {
+        guard DiodeSessionBootstrap.isEnabled else { return }
+        log.info("Establishing Diode navigation session without Proton OAuth", category: .app)
+        do {
+            let servers = try await DiodeLogicalsLive.fetchLogicals(countryCode: nil)
+            serverManager.update(servers: servers, freeServersOnly: false, lastModifiedAt: nil)
+        } catch {
+            log.error("Failed to sync Diode server list before establishing session", category: .api, metadata: ["error": "\(error)"])
+            throw error
+        }
+        if sessionStatus != .established {
+            sessionStatus = .established
+            propertiesManager.hasConnected = true
+            post(notification: SessionChanged(data: .established(gateway: factory.makeVpnGateway())))
+        }
+        appSessionRefreshTimer.startTimers()
+    }
+
+    @MainActor
     func refreshVpnAuthCertificate() async throws {
+        guard !DiodeSessionBootstrap.isEnabled else {
+            return
+        }
         if !loggedIn {
             return
         }
@@ -166,6 +194,7 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
     }
 
     private func retrieveProperties() async throws {
+        guard !DiodeSessionBootstrap.isEnabled else { return }
         @Dependency(\.serverRepository) var serverRepository
         guard let properties = try await getVPNProperties() else {
             serverRepository.setMetadata("0", for: .consecutiveSuccessfulRefreshes)
@@ -227,6 +256,7 @@ final class AppSessionManagerImplementation: AppSessionRefresherImplementation, 
     /// - Server storage is empty or user IP is not known
     /// - We hit a keychain error
     private func getVPNProperties() async throws -> VpnProperties? {
+        guard !DiodeSessionBootstrap.isEnabled else { return nil }
         let isDisconnected = await appState.isDisconnected
         let location = propertiesManager.userLocation
 

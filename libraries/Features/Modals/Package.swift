@@ -22,7 +22,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../../Foundations/Strings"),
         .package(path: "../../Foundations/Theme"),
@@ -54,8 +54,8 @@ let package = Package(
                 "SharedViews",
                 .product(name: "Overture", package: "swift-overture"),
                 .product(name: "CombineSchedulers", package: "combine-schedulers"),
-                .product(name: "ProtonCoreUIFoundations", package: "protoncore"),
-                .product(name: "ProtonCoreUtilities", package: "protoncore"),
+                .product(name: "ProtonCoreUIFoundations", package: "ProtonShims"),
+                .product(name: "ProtonCoreUtilities", package: "ProtonShims"),
             ],
             resources: [
                 .process("Resources/Media.xcassets"),

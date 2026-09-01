@@ -1,0 +1,6 @@
+//
+// DiodeBackend-WireGuard-Debug.xcconfig
+// Applied to ProtonVPN WireGuard system extension when building Debug-Diode.
+//
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DIODE_BACKEND

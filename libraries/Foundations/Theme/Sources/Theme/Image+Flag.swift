@@ -25,16 +25,5 @@ public extension ImageAsset.Image {
     }
 }
 
-#if os(macOS)
-    public extension ImageAsset.Image {
-        var swiftUIImage: SwiftUI.Image {
-            SwiftUI.Image(nsImage: self)
-        }
-    }
-#else
-    public extension ImageAsset.Image {
-        var swiftUIImage: SwiftUI.Image {
-            SwiftUI.Image(uiImage: self)
-        }
-    }
-#endif
+// `swiftUIImage` lives on NSImage/UIImage in ProtonCoreUIFoundations only.
+// Do not redeclare it here — that causes ambiguous use when both modules import.

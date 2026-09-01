@@ -46,6 +46,7 @@ import ProtonCoreServices
 import ProtonCoreUIFoundations
 
 import Announcement
+import DiodeConnection
 import Domain
 import Ergonomics
 import Sharing
@@ -105,6 +106,8 @@ extension AppDelegate: NSApplicationDelegate {
         setupLogsForApp()
         log.debug("applicationDidFinishLaunching", category: .app)
 
+        DiodeBackendConfig.configureFromObfuscatedConstantsIfNeeded()
+
         NSApp.appearance = .init(named: .darkAqua)
         injectDefaultCryptoImplementation()
 
@@ -157,6 +160,12 @@ extension AppDelegate: NSApplicationDelegate {
                 )
 
                 AppLaunchRoutine.execute()
+
+                if DiodeBackend.isEnabled {
+                    DiodeAppLifecycle.onAppLaunch(appLabel: Self.diodeAppLaunchLabel(platform: "macOS"))
+                    DiodeBackendLiveConfiguration.syncServerListIfNeeded()
+                }
+
                 #if !REDESIGN
                     self.menuManager.updateMenuControllers()
                 #endif
@@ -484,5 +493,11 @@ extension AppDelegate {
             }
         }
         .store(in: &cancellables)
+    }
+
+    private static func diodeAppLaunchLabel(platform: String) -> String {
+        let shortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        return "Diode VPN \(platform) \(shortVersion) (\(build))"
     }
 }

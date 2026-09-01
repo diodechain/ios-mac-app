@@ -25,7 +25,7 @@ import Strings
 public struct TroubleshootFeature {
     @ObservableState
     public struct State: Equatable {
-        static let supportEmail = "support@protonvpn.com"
+        static let supportEmail = "support@diode.io"
         static let urlTor = "https://www.torproject.org"
         static let urlProtonStatus = "http://protonstatus.com"
         static let urlSupportForm = "https://protonvpn.com/support-form"

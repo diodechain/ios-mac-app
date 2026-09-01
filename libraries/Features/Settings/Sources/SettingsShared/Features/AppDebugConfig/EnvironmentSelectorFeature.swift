@@ -18,11 +18,13 @@
 
 import ComposableArchitecture
 import Dependencies
+import Ergonomics
 import Foundation
 import Theme
 
 import CommonNetworking
 
+import ProtonCoreEnvironment
 import ProtonCoreFeatureFlags // Needed to create a manual override type
 
 @Reducer
@@ -80,7 +82,12 @@ public struct DebugConfigurationFeature {
             }
             // If the custom host differs from what we've set, let's use the release host validator to find out why
             let validationResult = Result { try ReleaseHostValidator.validate(customHost: apiEndpoint) }
-            return (.danger, "Environment not set {actual: \(actualHost), error: \(optional: validationResult.error)}")
+            switch validationResult {
+            case .success:
+                return (.danger, "Environment not set {actual: \(actualHost), error: none}")
+            case let .failure(error):
+                return (.danger, "Environment not set {actual: \(actualHost), error: \(optional: error)}")
+            }
         }
 
         public var environmentsCaption: (AppTheme.Style, String) {
@@ -389,11 +396,13 @@ public extension DebugConfigurationFeature.State {
         public var id: String { url }
 
         package var url: String {
+            // Proton staging hosts used to come from app-target ObfuscatedConstants.
+            // Under Diode these environments are unused; keep empty placeholders.
             switch self {
             case .protonBTI:
-                ObfuscatedConstants.btiAPIHost
+                ""
             case .protonBlack:
-                ObfuscatedConstants.blackAPIHost
+                ""
             }
         }
 

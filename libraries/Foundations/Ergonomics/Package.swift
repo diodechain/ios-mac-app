@@ -29,7 +29,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
         .package(
             url: "https://github.com/pointfreeco/swift-composable-architecture",
             .upToNextMajor(from: "1.24.1")
@@ -77,8 +77,8 @@ let package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "IssueReporting", package: "xctest-dynamic-overlay"),
                 .product(name: "ConcurrencyExtras", package: "swift-concurrency-extras"),
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
-                .product(name: "ProtonCoreServices", package: "protoncore"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
+                .product(name: "ProtonCoreServices", package: "ProtonShims"),
             ]
         ),
         .target(

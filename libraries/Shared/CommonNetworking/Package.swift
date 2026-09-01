@@ -15,7 +15,7 @@ let package = Package(
         .library(name: "CommonNetworkingTestSupport", targets: ["CommonNetworkingTestSupport"]),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../Localization"),
         .package(path: "../Persistence"),
@@ -48,16 +48,16 @@ let package = Package(
                 .product(name: "VPNShared", package: "NEHelper"), // AuthKeychain
 
                 // Core/Accounts
-                .product(name: "ProtonCoreAPIClient", package: "protoncore"),
-                .product(name: "ProtonCoreAuthentication", package: "protoncore"),
-                .product(name: "ProtonCoreDataModel", package: "protoncore"),
-                .product(name: "ProtonCoreDoh", package: "protoncore"),
-                .product(name: "ProtonCoreEnvironment", package: "protoncore"),
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
-                .product(name: "ProtonCoreFoundations", package: "protoncore"),
-                .product(name: "ProtonCoreNetworking", package: "protoncore"),
-                .product(name: "ProtonCoreServices", package: "protoncore"),
-                .product(name: "ProtonCoreUtilities", package: "protoncore"),
+                .product(name: "ProtonCoreAPIClient", package: "ProtonShims"),
+                .product(name: "ProtonCoreAuthentication", package: "ProtonShims"),
+                .product(name: "ProtonCoreDataModel", package: "ProtonShims"),
+                .product(name: "ProtonCoreDoh", package: "ProtonShims"),
+                .product(name: "ProtonCoreEnvironment", package: "ProtonShims"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
+                .product(name: "ProtonCoreFoundations", package: "ProtonShims"),
+                .product(name: "ProtonCoreNetworking", package: "ProtonShims"),
+                .product(name: "ProtonCoreServices", package: "ProtonShims"),
+                .product(name: "ProtonCoreUtilities", package: "ProtonShims"),
 
                 // External
                 .product(name: "TrustKit", package: "TrustKit"),

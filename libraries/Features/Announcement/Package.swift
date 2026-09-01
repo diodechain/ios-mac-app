@@ -17,7 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../../Foundations/Strings"),
         .package(path: "../../Foundations/Ergonomics"),
@@ -50,9 +50,9 @@ let package = Package(
                 "Connection",
                 .product(name: "VPNAppCore", package: "NEHelper"),
                 .product(name: "VPNShared", package: "NEHelper"),
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
-                .product(name: "ProtonCoreNetworking", package: "protoncore"),
-                .product(name: "ProtonCoreUIFoundations", package: "protoncore"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
+                .product(name: "ProtonCoreNetworking", package: "ProtonShims"),
+                .product(name: "ProtonCoreUIFoundations", package: "ProtonShims"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "DependenciesMacros", package: "swift-dependencies"),
                 .product(name: "Logging", package: "swift-log"),

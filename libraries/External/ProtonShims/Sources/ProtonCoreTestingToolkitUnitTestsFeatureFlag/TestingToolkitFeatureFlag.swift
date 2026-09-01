@@ -1,0 +1,4 @@
+import Foundation
+import ProtonCoreFeatureFlags
+
+public enum ProtonCoreTestingToolkitUnitTestsFeatureFlag {}

@@ -75,7 +75,7 @@ class SettingsDropDownView: NSView {
         setAccessibilityLabel(model.labelText)
 
         label.attributedStringValue = model.labelText.styled(font: .themeFont(.heading4), alignment: .left)
-        infoIcon.image = model.toolTip != nil ? SettingsTickboxView.infoIcon : nil
+        infoIcon.image = model.toolTip != nil ? SettingsTickboxView.infoIconImage : nil
         infoIcon.toolTip = model.toolTip
         separator.fillColor = .color(.border, .weak)
 

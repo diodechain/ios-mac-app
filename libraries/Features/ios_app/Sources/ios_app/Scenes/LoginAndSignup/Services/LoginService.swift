@@ -22,6 +22,7 @@ import ProtonCorePushNotifications
 import ProtonCoreUIFoundations
 
 import CommonNetworking
+import DiodeConnection
 import Domain
 import Ergonomics
 import LegacyCommon
@@ -316,6 +317,16 @@ extension CoreLoginService: LoginService {
 
     @MainActor
     func attemptSilentLogIn() async -> SilentLoginResult {
+        if DiodeSessionBootstrap.isEnabled {
+            do {
+                try await appSessionManager.establishDiodeNavigationSession()
+                return .loggedIn
+            } catch {
+                log.error("Diode navigation session failed: \(error)")
+                return .notLoggedIn(.otherError(error))
+            }
+        }
+
         if appSessionManager.loadDataWithoutFetching() {
             // Refresh data in the background without blocking the UI
             Task {

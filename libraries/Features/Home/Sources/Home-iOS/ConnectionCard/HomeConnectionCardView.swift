@@ -66,10 +66,10 @@ struct HomeConnectionCardView: View {
     @ViewBuilder
     private var trailingIcon: some View {
         if store.vpnConnectionStatus.connectionStatusAvailable {
-            IconProvider.chevronRight
+            IconProvider.chevronRight.swiftUIImage
                 .foregroundColor(Color(.icon, .weak))
         } else if store.vpnConnectionStatus == .disconnected, (store.userTier ?? .freeTier).isFreeTier {
-            IconProvider.infoCircle
+            IconProvider.infoCircle.swiftUIImage
                 .foregroundColor(Color(.icon, .weak))
         }
     }

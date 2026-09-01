@@ -21,6 +21,7 @@ import DependenciesMacros
 import Domain
 import Foundation
 import ProtonCoreAuthentication
+import ProtonCoreDataModel
 import ProtonCoreNetworking
 import ProtonCoreServices
 import VPNShared
@@ -45,12 +46,14 @@ extension UserSettingsClient: DependencyKey {
     }()
 
     #if DEBUG
-        public static let testValue: UserSettingsClient = UserSettingsClient { _ in
-            .init(
-                password: .init(mode: .singlePassword),
-                _2FA: .init(enabled: .both, registeredKeys: [])
-            )
-        }
+        public static let testValue: UserSettingsClient = UserSettingsClient(
+            fetchUserSettings: { _ in
+                UserSettings(
+                    password: .init(mode: .singlePassword),
+                    _2FA: .init(enabled: .both, registeredKeys: [])
+                )
+            }
+        )
     #endif
 }
 

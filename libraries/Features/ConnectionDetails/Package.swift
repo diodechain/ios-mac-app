@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         // Local
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../../Foundations/Theme"),
         .package(path: "../../Foundations/Strings"),
@@ -55,7 +55,7 @@ let package = Package(
                 "SharedViews",
                 "Theme",
                 .product(name: "VPNAppCore", package: "NEHelper"),
-                .product(name: "ProtonCoreUIFoundations", package: "protoncore"),
+                .product(name: "ProtonCoreUIFoundations", package: "ProtonShims"),
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]

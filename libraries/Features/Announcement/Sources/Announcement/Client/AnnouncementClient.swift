@@ -31,7 +31,8 @@ extension AnnouncementClient: DependencyKey {
         return AnnouncementClient(
             fetchAnnouncements: {
                 let request = AnnouncementRequest()
-                return try await networking.perform(request: request)
+                let response: AnnouncementResponse = try await networking.perform(request: request)
+                return response
             }
         )
     }()

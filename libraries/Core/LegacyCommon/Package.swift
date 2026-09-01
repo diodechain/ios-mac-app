@@ -33,7 +33,7 @@ let package = Package(
     ],
     dependencies: [
         // External packages regularly upstreamed by our project (imported as submodules)
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         // Local packages
         .package(path: "../NEHelper"),
@@ -45,6 +45,7 @@ let package = Package(
         .package(path: "../../Foundations/Theme"),
         .package(path: "../../Foundations/Timer"),
 
+        .package(path: "../../Shared/DiodeVPN"),
         .package(path: "../../Shared/CommonNetworking"),
         .package(path: "../../Shared/Connection"),
         .package(path: "../../Shared/ExtensionIPC"),
@@ -76,6 +77,7 @@ let package = Package(
                 // Local
                 "Domain",
                 "Connection",
+                .product(name: "DiodeConnection", package: "DiodeVPN"),
                 "Ergonomics",
                 "PMLogger",
                 "Strings",
@@ -106,17 +108,18 @@ let package = Package(
                 .product(name: "TimerMock", package: "Timer"),
 
                 // Core code
-                .product(name: "ProtonCoreAuthentication", package: "protoncore"),
-                .product(name: "ProtonCoreDataModel", package: "protoncore"),
-                .product(name: "ProtonCoreFeatureFlags", package: "protoncore"),
-                .product(name: "ProtonCoreLogin", package: "protoncore"),
-                .product(name: "ProtonCoreNetworking", package: "protoncore"),
-                .product(name: "ProtonCorePushNotifications", package: "protoncore"),
-                .product(name: "ProtonCoreServices", package: "protoncore"),
-                .product(name: "ProtonCoreTelemetry", package: "protoncore"),
-                .product(name: "ProtonCoreUIFoundations", package: "protoncore"),
-                .product(name: "ProtonCoreUtilities", package: "protoncore"),
-                .product(name: "GoLibsCryptoVPNPatchedGo", package: "protoncore"),
+                .product(name: "ProtonCoreAuthentication", package: "ProtonShims"),
+                .product(name: "ProtonCoreDataModel", package: "ProtonShims"),
+                .product(name: "ProtonCoreEnvironment", package: "ProtonShims"),
+                .product(name: "ProtonCoreFeatureFlags", package: "ProtonShims"),
+                .product(name: "ProtonCoreLogin", package: "ProtonShims"),
+                .product(name: "ProtonCoreNetworking", package: "ProtonShims"),
+                .product(name: "ProtonCorePushNotifications", package: "ProtonShims"),
+                .product(name: "ProtonCoreServices", package: "ProtonShims"),
+                .product(name: "ProtonCoreTelemetry", package: "ProtonShims"),
+                .product(name: "ProtonCoreUIFoundations", package: "ProtonShims"),
+                .product(name: "ProtonCoreUtilities", package: "ProtonShims"),
+                .product(name: "GoLibsCryptoVPNPatchedGo", package: "ProtonShims"),
 
                 // External
                 "Version",
@@ -141,12 +144,12 @@ let package = Package(
                     .product(name: "VPNShared", package: "NEHelper"),
                     .product(name: "VPNSharedTesting", package: "NEHelper"),
 
-                    .product(name: "GoLibsCryptoVPNPatchedGo", package: "protoncore"),
-                    .product(name: "ProtonCoreAuthentication", package: "protoncore"),
-                    .product(name: "ProtonCoreDataModel", package: "protoncore"),
-                    .product(name: "ProtonCoreFoundations", package: "protoncore"),
-                    .product(name: "ProtonCoreNetworking", package: "protoncore"),
-                    .product(name: "ProtonCoreServices", package: "protoncore"),
+                    .product(name: "GoLibsCryptoVPNPatchedGo", package: "ProtonShims"),
+                    .product(name: "ProtonCoreAuthentication", package: "ProtonShims"),
+                    .product(name: "ProtonCoreDataModel", package: "ProtonShims"),
+                    .product(name: "ProtonCoreFoundations", package: "ProtonShims"),
+                    .product(name: "ProtonCoreNetworking", package: "ProtonShims"),
+                    .product(name: "ProtonCoreServices", package: "ProtonShims"),
                 ]
             ),
             */
@@ -156,8 +159,8 @@ let package = Package(
                 "LegacyCommon",
                 .product(name: "DomainTestSupport", package: "Domain"),
                 .product(name: "PersistenceTestSupport", package: "Persistence"),
-                .product(name: "ProtonCoreTestingToolkitUnitTestsCore", package: "protoncore"),
-                .product(name: "ProtonCoreTestingToolkitUnitTestsFeatureFlag", package: "protoncore"),
+                .product(name: "ProtonCoreTestingToolkitUnitTestsCore", package: "ProtonShims"),
+                .product(name: "ProtonCoreTestingToolkitUnitTestsFeatureFlag", package: "ProtonShims"),
             ]
         ),
     ]

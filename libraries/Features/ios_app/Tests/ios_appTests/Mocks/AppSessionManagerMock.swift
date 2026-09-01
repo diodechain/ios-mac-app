@@ -77,6 +77,10 @@ class AppSessionManagerMock: AppSessionManager {
         callbackLoadDataWithoutLogin?()
     }
 
+    func establishDiodeNavigationSession() async throws {
+        callbackLoadDataWithoutLogin?()
+    }
+
     func refreshData() {
         callbackRefreshData?()
     }

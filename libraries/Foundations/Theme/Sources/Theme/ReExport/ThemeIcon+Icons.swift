@@ -46,7 +46,7 @@ public struct ThemeIcon: Equatable, Sendable {
         case let .asset(name):
             Image(name, bundle: .module)
         case let .iconProvider(keyPath):
-            IconProvider[dynamicMember: keyPath]
+            IconProvider[dynamicMember: keyPath].swiftUIImage
         }
     }
 

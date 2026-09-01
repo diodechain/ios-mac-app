@@ -79,7 +79,7 @@
                     Button(action: {
                         toggleSidebar()
                     }, label: {
-                        IconProvider.sidePanelLeft
+                        IconProvider.sidePanelLeft.swiftUIImage
                             .resizable()
                             .foregroundColor(Color(.text, .weak))
                             .frame(.square(.themeSpacing16))

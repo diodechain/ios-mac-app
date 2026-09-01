@@ -17,7 +17,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../../../external/protoncore"),
+        .package(path: "../../External/ProtonShims"),
 
         .package(path: "../Ergonomics"),
         .package(path: "../PMLogger"),
@@ -30,7 +30,7 @@ let package = Package(
             dependencies: [
                 "Ergonomics",
                 "PMLogger",
-                .product(name: "ProtonCoreUIFoundations", package: "protoncore"),
+                .product(name: "ProtonCoreUIFoundations", package: "ProtonShims"),
                 .product(name: "Logging", package: "swift-log"),
             ],
             exclude: ["swiftgen.yml"],

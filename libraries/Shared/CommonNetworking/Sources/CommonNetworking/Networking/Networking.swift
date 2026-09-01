@@ -159,7 +159,7 @@ public final class CoreNetworking: Networking {
             authRetry: route.authRetry,
             customAuthCredential: route.authCredential,
             nonDefaultTimeout: nil,
-            retryPolicy: route.retryPolicy
+            retryPolicy: route.retryPolicy as Any,
         ) { _, result in
             switch result {
             case let .success(data):
@@ -192,40 +192,57 @@ public final class CoreNetworking: Networking {
             authRetry: route.authRetry,
             customAuthCredential: route.authCredential,
             nonDefaultTimeout: nil,
-            retryPolicy: route.retryPolicy
-        ) { (_ task: URLSessionDataTask?, _ result: Result<JSONDictionary, NSError>) in
-            let httpResponse = task?.response as? HTTPURLResponse
-            let statusCode = httpResponse?.statusCode
-            let lastModified = httpResponse?.headers["Last-Modified"]
-            switch result {
-            case let .success(data):
-                log.debug("Request finished OK", category: .net, metadata: [
-                    "url": "\(url)",
-                    "method": "\(route.method.rawValue.uppercased())",
-                    "Last-Modified": "\(lastModified ?? "nil")",
-                ])
-                completion(.success(.modified(at: lastModified, value: data)))
+            retryPolicy: route.retryPolicy as Any,
+            completion: { task, result in
+                self.handleConditionalRequestResponse(
+                    task: task,
+                    result: result,
+                    url: url,
+                    route: route,
+                    completion: completion
+                )
+            }
+        )
+    }
 
-            case let .failure(error):
-                if case HttpStatusCode.notModified.rawValue = statusCode {
-                    log.debug("Request finished - not modified", category: .net, event: .response, metadata: [
-                        "error": "\(error)",
-                        "url": "\(url)",
-                        "method": "\(route.method.rawValue.uppercased())",
-                        "Last-Modified": "\(optional: lastModified)",
-                    ])
-                    completion(.success(.notModified(since: lastModified)))
-                    return
-                }
+    private func handleConditionalRequestResponse(
+        task: URLSessionDataTask?,
+        result: Result<JSONDictionary, Error>,
+        url: String,
+        route: ConditionalRequest,
+        completion: @escaping (_ result: Result<IfModifiedSinceResponse<JSONDictionary>, Error>) -> Void
+    ) {
+        let httpResponse = task?.response as? HTTPURLResponse
+        let statusCode = httpResponse?.statusCode
+        let lastModified = httpResponse?.value(forHTTPHeaderField: "Last-Modified")
+        switch result {
+        case let .success(data):
+            log.debug("Request finished OK", category: .net, metadata: [
+                "url": "\(url)",
+                "method": "\(route.method.rawValue.uppercased())",
+                "Last-Modified": "\(lastModified ?? "nil")",
+            ])
+            completion(.success(.modified(at: lastModified, value: data)))
 
-                log.error("Request failed", category: .net, event: .response, metadata: [
+        case let .failure(error):
+            if case HttpStatusCode.notModified.rawValue = statusCode {
+                log.debug("Request finished - not modified", category: .net, event: .response, metadata: [
                     "error": "\(error)",
                     "url": "\(url)",
                     "method": "\(route.method.rawValue.uppercased())",
-                    "code": "\(statusCode ?? -1)",
+                    "Last-Modified": "\(optional: lastModified)",
                 ])
-                completion(.failure(error))
+                completion(.success(.notModified(since: lastModified)))
+                return
             }
+
+            log.error("Request failed", category: .net, event: .response, metadata: [
+                "error": "\(error)",
+                "url": "\(url)",
+                "method": "\(route.method.rawValue.uppercased())",
+                "code": "\(statusCode ?? -1)",
+            ])
+            completion(.failure(error))
         }
     }
 

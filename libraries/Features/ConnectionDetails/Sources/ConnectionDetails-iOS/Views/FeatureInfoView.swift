@@ -55,7 +55,7 @@ struct FeatureInfoView: View {
                             .font(.themeFont(.caption(emphasised: true)))
                             .foregroundColor(Color(.text, .weak))
 
-                        IconProvider.infoCircle
+                        IconProvider.infoCircle.swiftUIImage
                             .resizable().frame(width: infoIconSize, height: infoIconSize)
                             .foregroundColor(Color(.text, .weak))
                     }
@@ -80,12 +80,12 @@ extension FeatureInfoView {
     init(for feature: ConnectionSpec.Feature) {
         switch feature {
         case .tor:
-            self.icon = IconProvider.brandTor
+            self.icon = IconProvider.brandTor.swiftUIImage
             self.title = Localizable.connectionDetailsFeatureTitleTor
             self.text = Localizable.connectionDetailsFeatureDescriptionTor
 
         case .p2p:
-            self.icon = IconProvider.arrowRightArrowLeft
+            self.icon = IconProvider.arrowRightArrowLeft.swiftUIImage
             self.title = Localizable.connectionDetailsFeatureTitleP2p
             self.text = Localizable.connectionDetailsFeatureDescriptionP2p
 
@@ -94,19 +94,19 @@ extension FeatureInfoView {
             let hostCountry = locale.localizedString(forRegionCode: hostCountryCode) ?? hostCountryCode
             let exitCountry = locale.localizedString(forRegionCode: exitCountryCode) ?? exitCountryCode
 
-            self.icon = IconProvider.globe
+            self.icon = IconProvider.globe.swiftUIImage
             self.title = Localizable.connectionDetailsFeatureTitleSmartRouting
             self.text = Localizable.connectionDetailsFeatureDescriptionSmartRouting(hostCountry, exitCountry)
 
         case .streaming:
-            self.icon = IconProvider.play
+            self.icon = IconProvider.play.swiftUIImage
             self.title = Localizable.connectionDetailsFeatureTitleStreaming
             self.text = Localizable.connectionDetailsFeatureDescriptionStreaming
         }
     }
 
     init(secureCore _: Bool) {
-        self.icon = IconProvider.lockLayers
+        self.icon = IconProvider.lockLayers.swiftUIImage
         self.title = Localizable.connectionDetailsFeatureTitleSecureCore
         self.text = Localizable.connectionDetailsFeatureDescriptionSecureCore
     }

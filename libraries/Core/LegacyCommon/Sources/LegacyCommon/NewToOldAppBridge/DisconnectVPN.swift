@@ -18,17 +18,24 @@
 
 import ComposableArchitecture
 import Connection
+import DiodeConnection
 import Domain
 import ProtonCoreFeatureFlags
 import VPNAppCore
 
 extension DisconnectVPNKey: @retroactive DependencyKey {
-    public static let liveValue = {
-        if FeatureFlagsRepository.isConnectionFeatureEnabled {
-            return newDisconnect
-        }
-        return legacyDisconnect
-    }()
+    public static let liveValue = if DiodeBackend.isEnabled {
+        diodeDisconnect
+    } else if FeatureFlagsRepository.isConnectionFeatureEnabled {
+        newDisconnect
+    } else {
+        legacyDisconnect
+    }
+
+    static let diodeDisconnect: @Sendable (UserInitiatedVPNChange.VPNTrigger) async throws -> Void = { trigger in
+        AppEvent.userInitiatedVPNChange.post(UserInitiatedVPNChange.disconnect(trigger))
+        try await DiodeConnectBridge.disconnect()
+    }
 
     public static let newDisconnect: @Sendable (UserInitiatedVPNChange.VPNTrigger) async throws -> Void = { trigger in
         @Dependency(\.connectionBridge) var bridge

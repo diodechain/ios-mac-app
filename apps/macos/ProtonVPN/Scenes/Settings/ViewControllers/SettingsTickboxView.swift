@@ -71,7 +71,7 @@ class SettingsTickboxView: NSView, SwitchButtonDelegate {
 
     private var observationToken: Any?
 
-    static let infoIcon = AppTheme.Icon.infoCircleFilled.colored(.hint)
+    static let infoIconImage = AppTheme.Icon.infoCircleFilled.colored(.hint)
 
     var isOn: Bool {
         switchButton?.currentButtonState == .on
@@ -138,7 +138,7 @@ class SettingsTickboxView: NSView, SwitchButtonDelegate {
 
         label.attributedStringValue = model.labelText.styled(font: .themeFont(.heading4), alignment: .left)
 
-        infoIcon?.image = model.toolTip != nil ? SettingsTickboxView.infoIcon : nil
+        infoIcon?.image = model.toolTip != nil ? SettingsTickboxView.infoIconImage : nil
         infoIcon?.toolTip = model.toolTip
         separator.fillColor = .color(.border, .weak)
 

@@ -19,6 +19,7 @@
 import CommonNetworking
 import ComposableArchitecture
 import Darwin
+import Domain
 
 @Reducer
 public struct LocalAgentNoticeFeature {
@@ -42,7 +43,7 @@ public struct LocalAgentNoticeFeature {
             case .openFidoAuthentication:
                 .run { @MainActor _ in
                     @Dependency(\.linkOpener) var linkOpener
-                    linkOpener.open(ObfuscatedConstants.fidoPortal)
+                    linkOpener.open(VPNLink.fido.rawValue)
                 }
             case .disconnect:
                 .none

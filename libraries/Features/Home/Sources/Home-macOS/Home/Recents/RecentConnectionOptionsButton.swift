@@ -40,7 +40,7 @@ struct RecentConnectionOptionsButton: View {
             Button {
                 isPresented.toggle()
             } label: {
-                IconProvider.threeDotsVertical
+                IconProvider.threeDotsVertical.swiftUIImage
                     .resizable()
                     .frame(.square(16))
                     .padding(.themeSpacing8)
@@ -87,10 +87,10 @@ private extension RecentConnectionOptionsButton {
             switch role {
             case let .pin(isPinned):
                 isPinned
-                    ? IconProvider.pinSlashFilled
-                    : IconProvider.pinFilled
+                    ? IconProvider.pinSlashFilled.swiftUIImage
+                    : IconProvider.pinFilled.swiftUIImage
             case .remove:
-                IconProvider.trashCross
+                IconProvider.trashCross.swiftUIImage
             }
         }
 

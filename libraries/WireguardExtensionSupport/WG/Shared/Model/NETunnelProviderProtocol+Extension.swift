@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright © 2018-2020 WireGuard LLC. All Rights Reserved.
 
+import Domain
 import NetworkExtension
 import WireGuardKit
 
@@ -84,12 +85,12 @@ extension NETunnelProviderProtocol {
 
         log.info("Using configuration format \(String(describing: version)).")
 
-        guard case .v1 = version else {
-            log.info("Version \(version) is not yet supported.")
-            return nil
+        let configData: Data
+        switch version {
+        case .v1, .v2:
+            configData = Data(data[1...])
         }
 
-        let configData = data[1...]
         let decoder = JSONDecoder()
         do {
             return try decoder.decode(StoredWireguardConfig.self, from: configData)

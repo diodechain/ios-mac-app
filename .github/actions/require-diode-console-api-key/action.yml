@@ -1,0 +1,16 @@
+name: Require Diode Console API key
+description: Fail the job when the DIODE_CONSOLE_API_KEY Actions secret is missing or malformed.
+
+inputs:
+  api-key:
+    description: Value of secrets.DIODE_CONSOLE_API_KEY from the calling workflow.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Check DIODE_CONSOLE_API_KEY secret
+      shell: bash
+      env:
+        DIODE_CONSOLE_API_KEY: ${{ inputs.api-key }}
+      run: ./scripts/require-diode-console-api-key.sh

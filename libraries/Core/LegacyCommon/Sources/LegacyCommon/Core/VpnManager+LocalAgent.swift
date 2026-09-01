@@ -331,9 +331,9 @@ extension VpnManager: LocalAgentDelegate {
                         @Dependency(\.authKeychain) var authKeychain
 
                         let fidoPortalURLString = if let username = authKeychain.username {
-                            ObfuscatedConstants.fidoPortal + "?email=" + username
+                            VPNLink.fido.rawValue + "?email=" + username
                         } else {
-                            ObfuscatedConstants.fidoPortal
+                            VPNLink.fido.rawValue
                         }
 
                         linkOpener.open(fidoPortalURLString)

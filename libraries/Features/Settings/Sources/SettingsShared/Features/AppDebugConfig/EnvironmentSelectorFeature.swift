@@ -396,11 +396,13 @@ public extension DebugConfigurationFeature.State {
         public var id: String { url }
 
         package var url: String {
+            // Proton staging hosts used to come from app-target ObfuscatedConstants.
+            // Under Diode these environments are unused; keep empty placeholders.
             switch self {
             case .protonBTI:
-                ObfuscatedConstants.btiAPIHost
+                ""
             case .protonBlack:
-                ObfuscatedConstants.blackAPIHost
+                ""
             }
         }
 

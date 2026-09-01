@@ -82,6 +82,7 @@ jobs:
             -destination 'platform=macOS,arch=arm64' \
             -clonedSourcePackagesDirPath /tmp/ProtonVPN-SourcePackages \
             -skipPackagePluginValidation \
+            -skipMacroValidation \
             build \
             CODE_SIGNING_ALLOWED=NO \
             ARCHS=arm64 \

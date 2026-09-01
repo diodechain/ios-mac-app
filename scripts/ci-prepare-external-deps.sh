@@ -30,6 +30,12 @@ clone_if_missing \
   https://github.com/ProtonMail/apple-fusion.git \
   2.1.2
 
+# Annotated tags may need a follow-up checkout when --branch peels oddly.
+if [[ -d external/apple-fusion/.git ]] && [[ ! -f external/apple-fusion/Package.swift ]]; then
+  git -C external/apple-fusion fetch --depth 1 origin tag 2.1.2
+  git -C external/apple-fusion checkout 2.1.2
+fi
+
 # protunFFI is gitignored; macOS Diode builds do not link it, but SPM still resolves the binary target.
 FFI_ROOT="libraries/Core/NEProviders/Frameworks/protunFFI.xcframework"
 if [[ ! -f "$FFI_ROOT/Info.plist" ]]; then
